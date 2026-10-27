@@ -1,1 +1,0 @@
-SFML_DIR = C:/SFML-3.1.0
