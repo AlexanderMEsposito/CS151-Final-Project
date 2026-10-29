@@ -6,4 +6,5 @@ namespace Constants {
     inline constexpr float WINDOW_WIDTH = 1920;
     inline constexpr float WINDOW_HEIGHT = 1080;
     inline constexpr float MAX_SPEED = 3;
+    inline constexpr float FRICTION = .05;
 }

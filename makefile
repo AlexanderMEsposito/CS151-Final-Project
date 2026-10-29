@@ -11,7 +11,7 @@ game: main.o player.o
 main.o: src/main.cpp
 	$(CC) $(FLAGS) -c $< -o $@
 
-player.o: src/player.cpp include/player.h
+player.o: src/player.cpp include/player.h include/constants.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 run: game
