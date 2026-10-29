@@ -7,12 +7,20 @@ class Weapon
 
 public:
 
+    // ------------------------
+
     std::string name {"Weapon"};
 
     int damage {1};
     int range {10};
 
+    // ------------------------
+
+    Weapon();
+
     Weapon(int dmg, int Range, std::string name);
+
+    // ------------------------
 
 private:
 
