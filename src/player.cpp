@@ -28,16 +28,26 @@ void Player::setVel(sf::Vector2f v) {
 void Player::update() {
     playerShape.setPosition(playerShape.getPosition() + vel);
 }
+/**
+ * @brief Accel takes a of a given frame and checks if adding that acceleration to current velocity would surpass MAX_SPEED; then it will sum it!
+ * 
+ * @param a Acceleration summed over a single game frame (in pixels)
+ */
 void Player::accel(sf::Vector2f a) {
     //Handle Max Speed
     //If summed speed is not over one then set vel to sum of accel and vel
     if ((abs((vel.x + a.x)) <= Constants::MAX_SPEED) && abs((vel.y + a.y)) <= Constants::MAX_SPEED) {
         setVel(vel + a);
-    //If sum of x magnitude is less than one then you can add the x values, but y is set to 1 keeping the sign
+    //If sum of x magnitude is less than one then you can add the x values, but y is set to MAX_SPEED keeping the sign
     } else if(abs(vel.x + a.x) < Constants::MAX_SPEED) {
         setVel({(vel.x + a.x), ((vel.y) / abs(vel.y))});
+        setVel({
+            (vel.x + a.x), std::copysign(Constants::MAX_SPEED, vel.y)
+        });
     } else if(abs(vel.y + a.y) < Constants::MAX_SPEED) {
-        setVel({((vel.x) / abs(vel.x)), (vel.y + a.y)});
+        setVel({
+            (std::copysign(Constants::MAX_SPEED, vel.x)), (vel.y + a.y)
+        });
     }
 
 //sets vel to magnitude 1 keeping direction

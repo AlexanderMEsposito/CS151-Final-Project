@@ -4,9 +4,12 @@
 class Player {
     public:
         Player();
+        //Setters
         void setRadius(float r);
-        void accel(sf::Vector2f a);
         void setVel(sf::Vector2f vel);
+
+        //Updates
+        void accel(sf::Vector2f a);
         void update();
 
         //Getter
@@ -15,7 +18,7 @@ class Player {
     private:
         //Vectors
         sf::Vector2f vel;
-        sf::Vector2f pos = {};
+        sf::Vector2f pos;
 
         //Double
         float playerHealth;

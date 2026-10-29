@@ -79,9 +79,10 @@ int main () {
 
         std::string VelX = std::to_string(player.getVel().x);
         std::string VelY = std::to_string(player.getVel().y);
-
-        sf::Text VelocityX(Lacquer, VelX, 30);
-        sf::Text VelocityY(Lacquer, VelY, 30);
+        VelX = "VelX: " + VelX;
+        VelY = "VelY: " + VelY;
+        sf::Text VelocityX(CaveatBrush, VelX, 30);
+        sf::Text VelocityY(CaveatBrush, VelY, 30);
 
         player.update();
         VelocityX.setPosition({0, 200});
