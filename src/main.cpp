@@ -15,7 +15,9 @@
 
 
 int main () {
+    //SETUP WINDOW AND FRAME LIMIT
     sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(Constants::WINDOW_WIDTH), static_cast<unsigned>(Constants::WINDOW_HEIGHT)}), "Unfinished Zombie Game 2");
+    window.setFramerateLimit(120);
 
     //loads menu music
     sf::Music menu("assets/music/Night-Stalker-3.ogg");
@@ -34,8 +36,12 @@ int main () {
 
     Player player;
     
+    
+    //ALL TESTING STUFF
+    sf::Text test2(Lacquer, "Hey this is Lacquer", 50);
 
-    sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
+    //TESTING
+
     while (window.isOpen())
     {
         // Process events
@@ -45,11 +51,45 @@ int main () {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
-
         }
+        
+        //Process input
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+            // Move Up
+            player.accel({0, -.1});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+            // Move Up
+            player.accel({0, .1});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+            // Move Up
+            player.accel({-.1, 0});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+            // Move Up
+            player.accel({.1, 0});
+        }
+
+        std::string VelX = std::to_string(player.getVel().x);
+        std::string VelY = std::to_string(player.getVel().y);
+
+        sf::Text VelocityX(Lacquer, VelX, 30);
+        sf::Text VelocityY(Lacquer, VelY, 30);
+
+        player.update();
+        VelocityX.setPosition({0, 200});
+        VelocityY.setPosition({0, 250});
+        //Render -- THEN clear
         window.clear(sf::Color::Black);
-        window.draw(test1);
+
+        //THEN DRAW
+        window.draw(test2);
+        window.draw(VelocityX);
+        window.draw(VelocityY);
         window.draw(player.playerShape);
+
+        //THEN DISPLAY
         window.display();
     }
 }

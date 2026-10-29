@@ -5,8 +5,12 @@ class Player {
     public:
         Player();
         void setRadius(float r);
-        void setOrigin(sf::Vector2f);
+        void accel(sf::Vector2f a);
+        void setVel(sf::Vector2f vel);
+        void update();
 
+        //Getter
+        sf::Vector2f getVel();
         sf::CircleShape playerShape;
     private:
         //Vectors

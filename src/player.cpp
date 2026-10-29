@@ -20,5 +20,29 @@ Player::Player() {
 }
 void Player::setRadius(float r) {
     playerShape.setRadius(r);
-    playerShape.setOrigin({r, r});
+    playerShape.setOrigin(playerShape.getGeometricCenter());
+}
+void Player::setVel(sf::Vector2f v) {
+    vel = v;
+}
+void Player::update() {
+    playerShape.setPosition(playerShape.getPosition() + vel);
+}
+void Player::accel(sf::Vector2f a) {
+    //Handle Max Speed
+    //If summed speed is not over one then set vel to sum of accel and vel
+    if ((abs((vel.x + a.x)) <= Constants::MAX_SPEED) && abs((vel.y + a.y)) <= Constants::MAX_SPEED) {
+        setVel(vel + a);
+    //If sum of x magnitude is less than one then you can add the x values, but y is set to 1 keeping the sign
+    } else if(abs(vel.x + a.x) < Constants::MAX_SPEED) {
+        setVel({(vel.x + a.x), ((vel.y) / abs(vel.y))});
+    } else if(abs(vel.y + a.y) < Constants::MAX_SPEED) {
+        setVel({((vel.x) / abs(vel.x)), (vel.y + a.y)});
+    }
+
+//sets vel to magnitude 1 keeping direction
+//setVel({, });
+}
+sf::Vector2f Player::getVel() {
+    return vel;
 }
