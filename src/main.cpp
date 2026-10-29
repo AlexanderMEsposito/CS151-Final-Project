@@ -10,8 +10,12 @@
  */
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "../include/player.h"
+#include "../include/constants.h"
+
+
 int main () {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML Window");
+    sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(Constants::WINDOW_WIDTH), static_cast<unsigned>(Constants::WINDOW_HEIGHT)}), "Unfinished Zombie Game 2");
 
     //loads menu music
     sf::Music menu("assets/music/Night-Stalker-3.ogg");
@@ -28,6 +32,9 @@ int main () {
     //TODO THIS SHOULD BE MOVED TO MENU GAME STATE NOT IN MAIN LOOP
     menu.play();
 
+    Player player;
+    
+
     sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
     while (window.isOpen())
     {
@@ -42,6 +49,7 @@ int main () {
         }
         window.clear(sf::Color::Black);
         window.draw(test1);
+        window.draw(player.playerShape);
         window.display();
     }
 }
