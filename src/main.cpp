@@ -36,6 +36,16 @@ int main () {
     
 
     sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
+    sf::Text test2(Lacquer, "Hey this is Lacquer", 50);
+    sf::Text test3(Mansalva, "Hey this is Mansalva", 50);
+    sf::Text test4(RubikDirt, "Hey this is RubikDirt", 50);
+    sf::Text test5(RubikWetPaint, "Hey this is RubikWetPaint", 50);
+
+    test2.setPosition({0.f, 100.f});
+    test3.setPosition({0.f, 200.f});
+    test4.setPosition({0.f, 300.f});
+    test5.setPosition({0.f, 400.f});
+
     while (window.isOpen())
     {
         // Process events
