@@ -27,7 +27,41 @@ void Player::setVel(sf::Vector2f v) {
 }
 void Player::update() {
     playerShape.setPosition(playerShape.getPosition() + vel);
+
+    friction(); // Apply friction every update
 }
+
+void Player::friction()
+{
+    // Remove friction from velocity
+    if (vel.x > Constants::FRICTION) // Should be slowed down
+    {
+        vel.x -= Constants::FRICTION;
+    }
+    else if (vel.x < -Constants::FRICTION) // Should be slowed down in negative direction
+    {
+        vel.x += Constants::FRICTION;
+    }
+    else // Smaller than friction, should be set to zero
+    {
+        vel.x = 0;
+    }
+
+    // Do the same for y
+    if (vel.y > Constants::FRICTION) // Should be slowed down
+    {
+        vel.y -= Constants::FRICTION;
+    }
+    else if (vel.y < -Constants::FRICTION) // Should be slowed down in negative direction
+    {
+        vel.y += Constants::FRICTION;
+    }
+    else // Smaller than friction, should be set to zero
+    {
+        vel.y = 0;
+    }
+}
+
 /**
  * @brief Accel takes a of a given frame and checks if adding that acceleration to current velocity would surpass MAX_SPEED; then it will sum it!
  * 

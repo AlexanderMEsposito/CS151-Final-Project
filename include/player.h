@@ -12,6 +12,8 @@ class Player {
         void accel(sf::Vector2f a);
         void update();
 
+        void friction();
+
         //Getter
         sf::Vector2f getVel();
         sf::CircleShape playerShape;
