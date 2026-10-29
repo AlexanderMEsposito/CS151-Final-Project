@@ -10,9 +10,14 @@
  */
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "../include/player.h"
+#include "../include/constants.h"
+
 
 int main () {
-    sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML Window");
+    //SETUP WINDOW AND FRAME LIMIT
+    sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(Constants::WINDOW_WIDTH), static_cast<unsigned>(Constants::WINDOW_HEIGHT)}), "Unfinished Zombie Game 2");
+    window.setFramerateLimit(120);
 
     //loads menu music
     sf::Music menu("assets/music/Night-Stalker-3.ogg");
@@ -28,6 +33,9 @@ int main () {
 
     //TODO THIS SHOULD BE MOVED TO MENU GAME STATE NOT IN MAIN LOOP
     menu.play();
+
+    Player player;
+    
 
     sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
     sf::Text test2(Lacquer, "Hey this is Lacquer", 50);
@@ -49,14 +57,46 @@ int main () {
             if (event->is<sf::Event::Closed>()) {
                 window.close();
             }
-
         }
+        
+        //Process input
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+            // Move Up
+            player.accel({0, -.1});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+            // Move Up
+            player.accel({0, .1});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+            // Move Up
+            player.accel({-.1, 0});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+            // Move Up
+            player.accel({.1, 0});
+        }
+
+        std::string VelX = std::to_string(player.getVel().x);
+        std::string VelY = std::to_string(player.getVel().y);
+        VelX = "VelX: " + VelX;
+        VelY = "VelY: " + VelY;
+        sf::Text VelocityX(CaveatBrush, VelX, 30);
+        sf::Text VelocityY(CaveatBrush, VelY, 30);
+
+        player.update();
+        VelocityX.setPosition({0, 200});
+        VelocityY.setPosition({0, 250});
+        //Render -- THEN clear
         window.clear(sf::Color::Black);
-        window.draw(test1);
+
+        //THEN DRAW
         window.draw(test2);
-        window.draw(test3);
-        window.draw(test4);
-        window.draw(test5);
+        window.draw(VelocityX);
+        window.draw(VelocityY);
+        window.draw(player.playerShape);
+
+        //THEN DISPLAY
         window.display();
     }
 }
