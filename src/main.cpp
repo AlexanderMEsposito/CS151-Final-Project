@@ -10,8 +10,9 @@
  */
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+
 int main () {
-    sf::RenderWindow window(sf::VideoMode({800, 600}), "SFML Window");
+    sf::RenderWindow window(sf::VideoMode({1280, 720}), "SFML Window");
 
     //loads menu music
     sf::Music menu("assets/music/Night-Stalker-3.ogg");
@@ -29,6 +30,16 @@ int main () {
     menu.play();
 
     sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
+    sf::Text test2(Lacquer, "Hey this is Lacquer", 50);
+    sf::Text test3(Mansalva, "Hey this is Mansalva", 50);
+    sf::Text test4(RubikDirt, "Hey this is RubikDirt", 50);
+    sf::Text test5(RubikWetPaint, "Hey this is RubikWetPaint", 50);
+
+    test2.setPosition({0.f, 100.f});
+    test3.setPosition({0.f, 200.f});
+    test4.setPosition({0.f, 300.f});
+    test5.setPosition({0.f, 400.f});
+
     while (window.isOpen())
     {
         // Process events
@@ -42,6 +53,10 @@ int main () {
         }
         window.clear(sf::Color::Black);
         window.draw(test1);
+        window.draw(test2);
+        window.draw(test3);
+        window.draw(test4);
+        window.draw(test5);
         window.display();
     }
 }
