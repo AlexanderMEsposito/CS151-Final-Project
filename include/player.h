@@ -9,10 +9,11 @@ class Player {
         void setVel(sf::Vector2f vel);
 
         //Updates
+        void handleInput();
         void accel(sf::Vector2f a);
-        void update();
+        void update(float dt);
 
-        void friction();
+        void friction(float dt);
 
         //Getter
         sf::Vector2f getVel();
@@ -21,7 +22,7 @@ class Player {
         //Vectors
         sf::Vector2f vel;
         sf::Vector2f pos;
-
+        sf::Vector2f inputDir;
         //Double
         float playerHealth;
 };
