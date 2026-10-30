@@ -34,11 +34,15 @@ void Player::update(float dt) {
         dirLength = sqrt(pow(inputDir.x, 2) + pow(inputDir.y, 2));
     } else dirLength = 1;
     inputDir *= ((Constants::PLAYER_ACCEL * dt)/dirLength);
-    accel(inputDir);
 
+    accel(inputDir);
+    friction(dt); // Apply friction every update
+    if (sqrt(pow(vel.x, 2) + pow(vel.y, 2)) > Constants::MAX_SPEED) {
+        vel = vel/vel.length() * Constants::MAX_SPEED;
+    }
     playerShape.setPosition(playerShape.getPosition() + (vel * dt));
 
-    friction(dt); // Apply friction every update
+
 }
 void Player::handleInput() {
     //reset input dir per tick
@@ -63,32 +67,12 @@ void Player::handleInput() {
 }
 void Player::friction(float dt)
 {
-    // Remove friction from velocity
-    if (vel.x > (dt * Constants::FRICTION)) // Should be slowed down
+    if (vel.length() <= (dt * Constants::FRICTION))
     {
-        vel.x -= dt * Constants::FRICTION;
-    }
-    else if (vel.x < dt * -Constants::FRICTION) // Should be slowed down in negative direction
+        vel = {0, 0};
+    } else
     {
-        vel.x += dt * Constants::FRICTION;
-    }
-    else // Smaller than friction, should be set to zero
-    {
-        vel.x = 0;
-    }
-
-    // Do the same for y
-    if (vel.y > dt * Constants::FRICTION) // Should be slowed down
-    {
-        vel.y -= dt * Constants::FRICTION;
-    }
-    else if (vel.y < dt * -Constants::FRICTION) // Should be slowed down in negative direction
-    {
-        vel.y += dt * Constants::FRICTION;
-    }
-    else // Smaller than friction, should be set to zero
-    {
-        vel.y = 0;
+        vel = vel/vel.length() * (vel.length() - (dt * Constants::FRICTION));
     }
 }
 

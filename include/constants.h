@@ -7,5 +7,5 @@ namespace Constants {
     inline constexpr float WINDOW_HEIGHT = 1080;
     inline constexpr float PLAYER_ACCEL = 3000;
     inline constexpr float MAX_SPEED = 500;
-    inline constexpr float FRICTION = 1500;
+    inline constexpr float FRICTION = 1000;
 }

@@ -19,7 +19,7 @@ int main () {
     //SETUP WINDOW AND FRAME LIMIT
     sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(Constants::WINDOW_WIDTH), static_cast<unsigned>(Constants::WINDOW_HEIGHT)}), "Unfinished Zombie Game 2");
     window.setPosition({50, 50});
-    window.setFramerateLimit(400);
+    window.setFramerateLimit(120);
 
     Game game;
     sf::Clock clock;
