@@ -28,17 +28,20 @@ void Player::setVel(sf::Vector2f v) {
     vel = v;
 }
 void Player::update(float dt) {
-    float dirLength;
-    sf::Vector2f blank {0, 0};
-    if (inputDir != blank) {
-        dirLength = sqrt(pow(inputDir.x, 2) + pow(inputDir.y, 2));
-    } else dirLength = 1;
-    inputDir *= ((Constants::PLAYER_ACCEL * dt)/dirLength);
 
-    accel(inputDir);
+    if (inputDir.x != 0 || inputDir.y != 0) // Only check if there is player input
+    {
+        inputDir = inputDir.normalized();
+        inputDir *= Constants::PLAYER_ACCEL * dt;
+    }
+    
+
+    accel(inputDir); // Accelerate from the player input
     friction(dt); // Apply friction every update
-    if (sqrt(pow(vel.x, 2) + pow(vel.y, 2)) > Constants::MAX_SPEED) {
-        vel = vel/vel.length() * Constants::MAX_SPEED;
+
+
+    if (vel.length() > Constants::MAX_SPEED) {
+        vel *= (Constants::MAX_SPEED / vel.length());
     }
     playerShape.setPosition(playerShape.getPosition() + (vel * dt));
 
