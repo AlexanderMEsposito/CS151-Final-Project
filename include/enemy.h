@@ -11,7 +11,7 @@ class Enemy {
         Enemy(const sf::Vector2f& spawnpoint);
 
         // ------------------------
-        // Temperoray (until draw with texture)
+        // Temporary (until draw with texture)
         void setRadius(float r);
 
         // ------------------------
@@ -40,7 +40,11 @@ class Enemy {
         void clampSpeed();
 
         // ------------------------
-        
+        // Rendering
+
+        sf::CircleShape& getShape() {return temp_shape;}
+
+        void draw(sf::RenderWindow& window);
 
         
     private:

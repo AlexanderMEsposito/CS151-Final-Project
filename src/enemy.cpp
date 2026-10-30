@@ -3,11 +3,17 @@
 
 // Spawn at world origin (0, 0)
 Enemy::Enemy()
-{}
+{
+    setRadius(15);
+    temp_shape.setFillColor(sf::Color::Green);
+}
 
 // Spawn at a specific location
 Enemy::Enemy(const sf::Vector2f& spawnpoint): pos(spawnpoint)
-{}
+{
+    setRadius(15);
+    temp_shape.setFillColor(sf::Color::Green);
+}
 
 
 void Enemy::setRadius(float r)
@@ -24,7 +30,7 @@ void Enemy::accelerate(const sf::Vector2f& a)
 void Enemy::update(float dt)
 {
 
-    // Do nothing for now
+    temp_shape.setPosition(pos);
 
 }
 
@@ -70,4 +76,11 @@ void Enemy::clampSpeed()
         vel /= rate;
 
     }
+}
+
+void Enemy::draw(sf::RenderWindow& window)
+{
+
+    window.draw(temp_shape);
+
 }
