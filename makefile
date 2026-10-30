@@ -5,7 +5,7 @@ FLAGS = -std=c++17 -Wall -I$(SFML_DIR)/include -Iinclude
 LDFLAGS = -L$(SFML_DIR)/lib
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o
 
 game: $(OBJS)
 	$(CC) $^ -o $@ $(LDFLAGS) $(LDLIBS)
@@ -23,6 +23,9 @@ player.o: src/player.cpp include/player.h include/constants.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 weapon.o: src/weapon.cpp include/weapon.h
+	$(CC) $(FLAGS) -c $< -o $@
+
+enemy.o: src/enemy.cpp include/enemy.h include/constants.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 run: game
