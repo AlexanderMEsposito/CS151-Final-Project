@@ -11,6 +11,8 @@
 
 #include "../include/player.h"
 #include "../include/constants.h"
+#include <cmath>
+using std::abs;
 
 Player::Player() {
     setRadius(15);
@@ -25,40 +27,52 @@ void Player::setRadius(float r) {
 void Player::setVel(sf::Vector2f v) {
     vel = v;
 }
-void Player::update() {
-    playerShape.setPosition(playerShape.getPosition() + vel);
+void Player::update(float dt) {
+    float dirLength;
+    sf::Vector2f blank {0, 0};
+    if (inputDir != blank) {
+        dirLength = sqrt(pow(inputDir.x, 2) + pow(inputDir.y, 2));
+    } else dirLength = 1;
+    inputDir *= ((Constants::PLAYER_ACCEL * dt)/dirLength);
 
-    friction(); // Apply friction every update
+    accel(inputDir);
+    friction(dt); // Apply friction every update
+    if (sqrt(pow(vel.x, 2) + pow(vel.y, 2)) > Constants::MAX_SPEED) {
+        vel = vel/vel.length() * Constants::MAX_SPEED;
+    }
+    playerShape.setPosition(playerShape.getPosition() + (vel * dt));
+
+
 }
-
-void Player::friction()
+void Player::handleInput() {
+    //reset input dir per tick
+    inputDir = {0, 0};
+    //Process input
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+        // Dir Up
+        inputDir += {0, -1};
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
+        // Dir Down
+        inputDir += {0, 1};
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
+        // Dir Left
+        inputDir += {-1, 0};
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
+        // Dir Right
+        inputDir += {1, 0};
+    }
+}
+void Player::friction(float dt)
 {
-    // Remove friction from velocity
-    if (vel.x > Constants::FRICTION) // Should be slowed down
+    if (vel.length() <= (dt * Constants::FRICTION))
     {
-        vel.x -= Constants::FRICTION;
-    }
-    else if (vel.x < -Constants::FRICTION) // Should be slowed down in negative direction
+        vel = {0, 0};
+    } else
     {
-        vel.x += Constants::FRICTION;
-    }
-    else // Smaller than friction, should be set to zero
-    {
-        vel.x = 0;
-    }
-
-    // Do the same for y
-    if (vel.y > Constants::FRICTION) // Should be slowed down
-    {
-        vel.y -= Constants::FRICTION;
-    }
-    else if (vel.y < -Constants::FRICTION) // Should be slowed down in negative direction
-    {
-        vel.y += Constants::FRICTION;
-    }
-    else // Smaller than friction, should be set to zero
-    {
-        vel.y = 0;
+        vel = vel/vel.length() * (vel.length() - (dt * Constants::FRICTION));
     }
 }
 
@@ -83,9 +97,6 @@ void Player::accel(sf::Vector2f a) {
             (std::copysign(Constants::MAX_SPEED, vel.x)), (vel.y + a.y)
         });
     }
-
-//sets vel to magnitude 1 keeping direction
-//setVel({, });
 }
 sf::Vector2f Player::getVel() {
     return vel;

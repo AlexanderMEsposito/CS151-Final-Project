@@ -12,17 +12,22 @@
 #include <SFML/Audio.hpp>
 #include "../include/player.h"
 #include "../include/constants.h"
+#include "../include/game.h"
 
 
 int main () {
     //SETUP WINDOW AND FRAME LIMIT
     sf::RenderWindow window(sf::VideoMode({static_cast<unsigned>(Constants::WINDOW_WIDTH), static_cast<unsigned>(Constants::WINDOW_HEIGHT)}), "Unfinished Zombie Game 2");
+    window.setPosition({50, 50});
     window.setFramerateLimit(120);
+
+    Game game;
+    sf::Clock clock;
 
     //loads menu music
     sf::Music menu("assets/music/Night-Stalker-3.ogg");
     //loads gameloop music
-    sf::Music game("assets/music/Night-Stalker-2.ogg");
+    sf::Music gameBg("assets/music/Night-Stalker-2.ogg");
 
     //WE DONT NEED ALL OF THESE BUT I THINK WE COULD PICK FROM THESE
     const sf::Font CaveatBrush("assets/fonts/CaveatBrush-Regular.ttf");
@@ -50,32 +55,11 @@ int main () {
 
     while (window.isOpen())
     {
-        // Process events
-        while (const std::optional event = window.pollEvent())
-        {
-            // Close window: exit
-            if (event->is<sf::Event::Closed>()) {
-                window.close();
-            }
-        }
-        
-        //Process input
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
-            // Move Up
-            player.accel({0, -.1});
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::S)) {
-            // Move Up
-            player.accel({0, .1});
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::A)) {
-            // Move Up
-            player.accel({-.1, 0});
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::D)) {
-            // Move Up
-            player.accel({.1, 0});
-        }
+        //starts delta time clock
+        float dt=clock.restart().asSeconds();
+
+        game.handleInput(window);
+        player.handleInput();
 
         std::string VelX = std::to_string(player.getVel().x);
         std::string VelY = std::to_string(player.getVel().y);
@@ -84,7 +68,9 @@ int main () {
         sf::Text VelocityX(CaveatBrush, VelX, 30);
         sf::Text VelocityY(CaveatBrush, VelY, 30);
 
-        player.update();
+        //UPDATE
+        game.update(dt, window);
+        player.update(dt);
         VelocityX.setPosition({0, 200});
         VelocityY.setPosition({0, 250});
         //Render -- THEN clear

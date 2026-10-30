@@ -9,16 +9,16 @@ public:
 
     // ------------------------
 
-    std::string name {"Weapon"};
+    std::string name;
 
-    int damage {1};
-    int range {10};
+    int damage;
+    int range;
 
     // ------------------------
 
     Weapon();
 
-    Weapon(int dmg, int Range, std::string name);
+    Weapon(std::string name, int dmg, int Range);
 
     // ------------------------
 
