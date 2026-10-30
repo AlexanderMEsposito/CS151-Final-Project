@@ -11,6 +11,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "../include/player.h"
+#include "../include/enemy.h"
 #include "../include/constants.h"
 #include "../include/game.h"
 
@@ -40,6 +41,8 @@ int main () {
     menu.play();
 
     Player player;
+
+    Enemy testEnemy({20, 20});
     
 
     sf::Text test1(CaveatBrush, "Hey this is CaveatBrush", 50);
@@ -71,6 +74,8 @@ int main () {
         //UPDATE
         game.update(dt, window);
         player.update(dt);
+        testEnemy.update(dt);
+
         VelocityX.setPosition({0, 200});
         VelocityY.setPosition({0, 250});
         //Render -- THEN clear
@@ -81,6 +86,8 @@ int main () {
         window.draw(VelocityX);
         window.draw(VelocityY);
         window.draw(player.playerShape);
+
+        window.draw(testEnemy.getShape());
 
         //THEN DISPLAY
         window.display();
