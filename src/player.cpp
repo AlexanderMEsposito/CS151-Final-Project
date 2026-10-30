@@ -104,3 +104,8 @@ void Player::accel(sf::Vector2f a) {
 sf::Vector2f Player::getVel() {
     return vel;
 }
+
+const sf::Vector2f& Player::getPos() const
+{
+    return pos;
+}

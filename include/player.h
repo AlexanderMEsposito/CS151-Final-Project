@@ -17,6 +17,8 @@ class Player {
 
         //Getter
         sf::Vector2f getVel();
+        const sf::Vector2f& getPos() const;
+
         sf::CircleShape playerShape;
     private:
         //Vectors

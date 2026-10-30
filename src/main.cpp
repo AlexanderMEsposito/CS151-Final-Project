@@ -74,7 +74,7 @@ int main () {
         //UPDATE
         game.update(dt, window);
         player.update(dt);
-        testEnemy.update(dt);
+        testEnemy.update(dt, player);
 
         VelocityX.setPosition({0, 200});
         VelocityY.setPosition({0, 250});
