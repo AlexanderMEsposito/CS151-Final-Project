@@ -22,13 +22,23 @@ void Enemy::setRadius(float r)
     temp_shape.setOrigin(temp_shape.getGeometricCenter());
 }
 
-void Enemy::accelerate(const sf::Vector2f& a)
+void Enemy::accelerate(const sf::Vector2f& a, float dt)
 {
-    vel += a; // Delta time component still needed
+    vel += a * dt;
 }
 
-void Enemy::update(float dt)
+void Enemy::update(float dt, Player& player)
 {
+
+    ai(dt, player);
+
+    friction(dt);
+
+    clampSpeed();
+
+    pos += vel * dt;
+
+    
 
     temp_shape.setPosition(pos);
 
@@ -36,31 +46,16 @@ void Enemy::update(float dt)
 
 void Enemy::friction(float dt)
 {
-
-    if (vel.x > Constants::FRICTION)
+    if (vel.length() <= dt * Constants::FRICTION)
     {
-        vel.x -= Constants::FRICTION;
-    }
-    else if (vel.x < -Constants::FRICTION)
-    {
-        vel.x += Constants::FRICTION;
+        vel = {0, 0};
     }
     else
     {
-        vel.x = 0;
-    }
 
-    if (vel.y > Constants::FRICTION)
-    {
-        vel.y -= Constants::FRICTION;
-    }
-    else if (vel.y < -Constants::FRICTION)
-    {
-        vel.y += Constants::FRICTION;
-    }
-    else
-    {
-        vel.y = 0;
+        sf::Vector2f fricAmt = vel.normalized() * -1.0f; // Get a length 1 vector pointing in opposite direction of vel
+
+        vel -= fricAmt * Constants::FRICTION * dt;
     }
 
 }
@@ -83,4 +78,21 @@ void Enemy::draw(sf::RenderWindow& window)
 
     window.draw(temp_shape);
 
+}
+
+void Enemy::ai(float dt, Player& player)
+{
+    // Calculate direction to move in
+    if (pos != player.playerShape.getPosition())
+
+        // Point towards the player
+        moveDir = (player.playerShape.getPosition() - pos).normalized();
+    
+    else
+        // Point nowhere
+        moveDir = {0, 0};
+        
+
+    // Accelerate based on move direction
+    accelerate(moveDir, dt * acceleration);
 }

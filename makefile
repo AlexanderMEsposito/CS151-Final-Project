@@ -25,7 +25,7 @@ player.o: src/player.cpp include/player.h include/constants.h
 weapon.o: src/weapon.cpp include/weapon.h
 	$(CC) $(FLAGS) -c $< -o $@
 
-enemy.o: src/enemy.cpp include/enemy.h include/constants.h
+enemy.o: src/enemy.cpp include/enemy.h include/constants.h include/player.h
 	$(CC) $(FLAGS) -c $< -o $@
 
 run: game
