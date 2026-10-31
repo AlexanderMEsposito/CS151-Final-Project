@@ -34,6 +34,7 @@ window(
 
 void Game::loadAssets() {}
 
+//W helper function
 bool Game::running() const 
 {
     return window.isOpen();

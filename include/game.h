@@ -35,7 +35,7 @@ class Game {
         
         sf::Clock clock;
 
-        float dt = 0.1f;
+        float dt;
 
         // bool mIsDone;
         MenuScreen menu;
