@@ -8,6 +8,8 @@
  * @copyright Copyright (c) 2026
  * 
  */
+#pragma once
+
 #include "../include/player.h"
 #include "../include/enemy.h"
 #include "../include/menuscreen.h"
@@ -23,6 +25,8 @@ class Game {
         void update();
         void render();
         void loadAssets();
+
+        sf::RenderWindow getWindow();
 
         void updateTestUI();
         //bool isDone() const;
@@ -57,5 +61,4 @@ class Game {
         // Temp test ui
         sf::Text test_text {CaveatBrush, "Hey this is CaveatBrush", 50};
         sf::Text text_vel {CaveatBrush, "---", 30};
-
 };
