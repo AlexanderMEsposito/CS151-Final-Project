@@ -54,7 +54,7 @@ void Game::handleInput() {
     sf::Vector2f mouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
 
     // Handle input on player
-    player.handleInput(mouseWorld);
+    player.handleInput(mouseWorld, dt);
 }
 
 void Game::update() {
