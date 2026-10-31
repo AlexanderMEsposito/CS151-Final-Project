@@ -6,6 +6,12 @@
 
 Weapon::Weapon()
 {
+    name = "Weapon";
+    damage = 10;
+    range = 400.f;
+    ammo = 10;
+    magSize = 20;
+
     beam.setSize(sf::Vector2f(range, 2.f));
     beam.setOrigin({0.f, 1.f});
     beam.setFillColor(sf::Color::White);
@@ -24,27 +30,51 @@ Weapon::Weapon(std::string name, int dmg, float Range): name(name), damage(dmg),
 
 // ------------------------ ------------------------ ------------------------
 
-void Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
+bool Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
 {
-    beam.setPosition(playerPos);
+    if (ammo > 0 && isReload == false) {
+        beam.setPosition(playerPos);
 
-    sf::Vector2f diff = mousePos - playerPos;
-    beam.setRotation(diff.angle());
+        sf::Vector2f diff = mousePos - playerPos;
+        beam.setRotation(diff.angle());
+        ammo -= 1;
+        return true;
+    } else return false;
+
+}
+int Weapon::getAmmo() const{
+    return ammo;
+}
+void Weapon::reload() {
+    if (isReload == false && ammo < magSize && firing == false) {
+        isReload = true;
+        reloadTimer = reloadTime;
+    }
+}
+void Weapon::updateMag(float dt) {
+    if (isReload) {
+        reloadTimer -= dt;
+        if (reloadTimer <= 0) {
+            ammo += 1;
+            if (ammo == magSize) {
+                isReload = false;
+            } else reloadTimer = reloadTime;
+        }
+    }
 }
 
 void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos)
 {
     if (left_click) 
     {
-
         if (ready)
         {
-            firing = true;
             ready = false;
-            fire_timer.restart();
-
-            fire(playerPos, mousePos);
-
+            if(fire(playerPos, mousePos)) 
+            {
+                firing = true;
+                fire_timer.restart();
+            }
         }
     }
 

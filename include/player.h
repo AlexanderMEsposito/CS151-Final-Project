@@ -10,7 +10,7 @@ class Player {
         void setVel(sf::Vector2f vel);
 
         //Updates
-        void handleInput(sf::Vector2f &mousePos);
+        void handleInput(sf::Vector2f &mousePos, float &dt);
         void accel(sf::Vector2f a);
         void update(float dt);
 
