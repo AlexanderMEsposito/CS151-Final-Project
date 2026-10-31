@@ -14,20 +14,45 @@
 
 #include "../include/constants.h"
 
+#include <vector>
+
 class Game {
     public:
+
+        // ------------------------
         Game();
         ~Game(){};
 
+        // ------------------------
+        // Input
+
         void handleInput();
+
+        // ------------------------
+        // Update
+
         void update();
+
+        // ------
+
+        void updateEnemies();
+        void updateTestUI();
+
+        // ------------------------
+
         void render();
+
+        void drawEnemies();
+
+        // ------------------------
+        // Initialization / assets
+
         void loadAssets();
 
-        void updateTestUI();
-        //bool isDone() const;
+        // ------------------------
 
         bool running() const;
+
     private:
         
         // SETUP WINDOW AND FRAME LIMIT
@@ -42,7 +67,7 @@ class Game {
 
         Player player;
 
-        Enemy testEnemy;
+        std::vector<Enemy> enemies; // List of all enemies in the world
 
         // Assets, these are likely to move somewhere else
         const sf::Font CaveatBrush {"assets/fonts/CaveatBrush-Regular.ttf"};
