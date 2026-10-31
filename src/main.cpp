@@ -86,7 +86,7 @@ int main () {
         window.draw(VelocityX);
         window.draw(VelocityY);
         window.draw(player.playerShape);
-
+        window.draw(player.weapon.beam);
         window.draw(testEnemy.getShape());
 
         //THEN DISPLAY
