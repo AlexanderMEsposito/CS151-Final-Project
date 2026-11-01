@@ -10,10 +10,10 @@ public:
 
     // ------------------------
 
-    std::string name;
+    std::string name {"Weapon"};
 
-    int damage;
-    float range;
+    int damage {10};
+    float range {500.0f};
 
     // ------------------------
 
@@ -23,7 +23,20 @@ public:
 
     // ------------------------
     void fire(sf::Vector2f playerPos, sf::Vector2f mousePos);
+
+    void update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos);
+
+    void render(sf::RenderWindow& window);
+
     sf::RectangleShape beam;
+
+    bool firing = false; // If the weapon is currently firing
+    bool ready = true; // If the weapon is ready to fire
+
+    sf::Clock fire_timer;
+
+    float fire_duration {.02f};
+
 private:
     
 

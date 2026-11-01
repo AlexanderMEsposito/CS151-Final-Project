@@ -66,9 +66,8 @@ void Player::handleInput(sf::Vector2f &mousePos) {
         // Dir Right
         inputDir += {1, 0};
     }
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-        weapon.fire(playerShape.getPosition(), mousePos);
-    }
+    
+    weapon.update(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left), playerShape.getPosition(), mousePos);
 }
 void Player::friction(float dt)
 {
@@ -110,4 +109,11 @@ sf::Vector2f Player::getVel() {
 const sf::Vector2f& Player::getPos() const
 {
     return pos;
+}
+
+void Player::render(sf::RenderWindow& window)
+{
+    window.draw(playerShape);
+    
+    weapon.render(window);
 }

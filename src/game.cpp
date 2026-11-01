@@ -74,8 +74,9 @@ void Game::render() {
     // THEN DRAW
     window.draw(test_text);
     window.draw(text_vel);
-    window.draw(player.playerShape);
-    window.draw(player.weapon.beam);
+    
+    player.render(window);
+
     window.draw(testEnemy.getShape());
 
     // THEN DISPLAY
