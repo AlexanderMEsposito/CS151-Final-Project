@@ -16,12 +16,17 @@ class Player {
 
         void friction(float dt);
 
+        // Rendering
+        void render(sf::RenderWindow& window);
+
         //Getter
         sf::Vector2f getVel();
         const sf::Vector2f& getPos() const;
 
         sf::CircleShape playerShape;
         Weapon weapon;
+
+
     private:
         //Vectors
         sf::Vector2f vel;

@@ -6,10 +6,6 @@
 
 Weapon::Weapon()
 {
-    name = "Weapon";
-    damage = 10;
-    range = 300.f;
-
     beam.setSize(sf::Vector2f(range, 2.f));
     beam.setOrigin({0.f, 1.f});
     beam.setFillColor(sf::Color::White);
@@ -34,4 +30,42 @@ void Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
 
     sf::Vector2f diff = mousePos - playerPos;
     beam.setRotation(diff.angle());
+}
+
+void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos)
+{
+    if (left_click) 
+    {
+
+        if (ready)
+        {
+            firing = true;
+            ready = false;
+            fire_timer.restart();
+
+            fire(playerPos, mousePos);
+
+        }
+    }
+
+    if (fire_timer.getElapsedTime().asSeconds() > fire_duration)
+    {
+        firing = false;
+    }
+
+    if (!left_click)
+    {
+        ready = true;
+    }
+}
+
+void Weapon::render(sf::RenderWindow& window)
+{
+
+    if (firing)
+    {
+        window.draw(beam);
+    }
+    
+
 }
