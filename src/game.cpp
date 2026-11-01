@@ -60,8 +60,10 @@ void Game::handleInput() {
         }
     }
 
+    sf::Vector2f mouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+
     // Handle input on player
-    player.handleInput();
+    player.handleInput(mouseWorld);
 }
 
 // ------------------------ ------------------------ ------------------------
