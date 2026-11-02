@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 
+#include "timer.h"
+
 class Weapon
 {
 
@@ -35,9 +37,7 @@ public:
     bool firing = false; // If the weapon is currently firing
     bool ready = true; // If the weapon is ready to fire
 
-    sf::Clock fire_timer;
-
-    float fire_duration {.02f};
+    Timer fire_timer {.02f};
 
     int getAmmo() const;
     void reload();
