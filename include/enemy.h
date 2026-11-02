@@ -50,6 +50,10 @@ class Enemy {
 
         void draw(sf::RenderWindow& window);
 
+        void collide(Enemy& other);
+
+        float sqdist(const Enemy& other);
+
         
     private:
         // Motion
