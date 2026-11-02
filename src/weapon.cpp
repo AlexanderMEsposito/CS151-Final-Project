@@ -78,7 +78,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
         }
     }
 
-    if (fire_timer.getElapsedTime().asSeconds() > fire_duration)
+    if (fire_timer.done())
     {
         firing = false;
     }
