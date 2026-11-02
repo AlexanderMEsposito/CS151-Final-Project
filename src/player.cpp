@@ -44,9 +44,10 @@ void Player::update(float dt) {
         vel *= (Constants::MAX_SPEED / vel.length());
     }
     playerShape.setPosition(playerShape.getPosition() + (vel * dt));
+    weapon.updateMag(dt);
 
 }
-void Player::handleInput(sf::Vector2f &mousePos) {
+void Player::handleInput(sf::Vector2f &mousePos, float &dt) {
     //reset input dir per tick
     inputDir = {0, 0};
     //Process input
@@ -66,7 +67,10 @@ void Player::handleInput(sf::Vector2f &mousePos) {
         // Dir Right
         inputDir += {1, 0};
     }
-    
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::R)) {
+        //player.animate(reload)
+        weapon.reload();
+    }
     weapon.update(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left), playerShape.getPosition(), mousePos);
 }
 void Player::friction(float dt)
