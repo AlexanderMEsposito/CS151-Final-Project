@@ -4,14 +4,14 @@
 // Spawn at world origin (0, 0)
 Enemy::Enemy()
 {
-    setRadius(15);
+    setRadius(20);
     temp_shape.setFillColor(sf::Color::Green);
 }
 
 // Spawn at a specific location
 Enemy::Enemy(const sf::Vector2f& spawnpoint): pos(spawnpoint)
 {
-    setRadius(15);
+    setRadius(20);
     temp_shape.setFillColor(sf::Color::Green);
 }
 
@@ -95,4 +95,30 @@ void Enemy::ai(float dt, Player& player)
 
     // Accelerate based on move direction
     accelerate(moveDir, dt * acceleration);
+}
+
+/**
+ * @brief Returns the square distance between this enemy and the other
+ * 
+ * @param other 
+ * @return float 
+ */
+float Enemy::sqdist(const Enemy& other)
+{
+    return (other.pos - pos).lengthSquared();
+}
+
+void Enemy::collide(Enemy& other)
+{   
+    float collision_radius = 20;
+
+    if (sqdist(other) < collision_radius * collision_radius)
+    {
+        // Vector pointing from this enemy to the other enemy
+        sf::Vector2f delta = (other.pos - pos).normalized() * (collision_radius / 2.0f);
+
+        // Push the two enemies apart
+        vel -= delta;
+        other.vel += delta;
+    }
 }
