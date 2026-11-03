@@ -1,5 +1,5 @@
 #include "world.h"
-
+#include "constants.h"
 
 Chunk& World::access_chunk_at(int row, int column)
 {
@@ -9,8 +9,8 @@ Chunk& World::access_chunk_at(int row, int column)
 void World::setOrigin(sf::Vector2f origin)
 {
     // Get world origin in terms of chunks (row, column)
-    origin_x = int(origin.x);
-    origin_y = int(origin.y);
+    origin_x = int(origin.x / Constants::CHUNK_SIZE);
+    origin_y = int(origin.y / Constants::CHUNK_SIZE);
 
     load_ax = origin_x - load_dist;
     load_ay = origin_y - load_dist;
@@ -32,7 +32,7 @@ void World::updateChunks()
 }
 
 void World::renderChunks(sf::RenderWindow& window, const sf::Vector2f reference)
-{
+{   
     for (int row {load_ax}; row <= load_bx; row++)
     {
         for (int column {load_ay}; column <= load_by; column++)

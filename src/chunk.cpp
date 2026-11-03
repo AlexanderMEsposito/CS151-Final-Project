@@ -22,7 +22,7 @@ Chunk& Chunk::initialize(int U, int V)
 
     initialized = true;
 
-    temp_display.setSize({Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
+    temp_display.setSize({Constants::CHUNK_SIZE * .995f, Constants::CHUNK_SIZE * .995f});
     temp_display.setFillColor({25, 75, 25});
 
     return *this;
