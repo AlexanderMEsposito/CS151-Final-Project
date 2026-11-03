@@ -11,4 +11,8 @@ namespace Constants {
     inline constexpr float PLAYER_ACCEL = 3000;
     inline constexpr float MAX_SPEED = 500;
     inline constexpr float FRICTION = 1000;
+
+    // ---------------------------------------------
+    // WORLD
+    inline constexpr float CHUNK_SIZE = 1000;
 }
