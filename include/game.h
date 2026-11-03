@@ -16,6 +16,8 @@
 
 #include "../include/constants.h"
 
+#include "../include/world.h"
+
 #include <vector>
 
 class Game {
@@ -72,8 +74,12 @@ class Game {
 
         std::vector<Enemy> enemies; // List of all enemies in the world
 
+        // World
+        World world;
+
         // Assets, these are likely to move somewhere else
         const sf::Font CaveatBrush {"assets/fonts/CaveatBrush-Regular.ttf"};
+
 
         /*
         const sf::Font Lacquer("assets/fonts/Lacquer-Regular.ttf");

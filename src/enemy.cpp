@@ -38,9 +38,10 @@ void Enemy::update(float dt, Player& player)
 
     pos += vel * dt;
 
-    
+    // This should later be calculated once, this line is just temporary
+    sf::Vector2f screen_center = {Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2};
 
-    temp_shape.setPosition(pos);
+    temp_shape.setPosition(pos - player.getPos() + screen_center);
 
 }
 
@@ -83,10 +84,10 @@ void Enemy::draw(sf::RenderWindow& window)
 void Enemy::ai(float dt, Player& player)
 {
     // Calculate direction to move in
-    if (pos != player.playerShape.getPosition())
+    if (pos != player.getPos())
 
         // Point towards the player
-        moveDir = (player.playerShape.getPosition() - pos).normalized();
+        moveDir = (player.getPos() - pos).normalized();
     
     else
         // Point nowhere

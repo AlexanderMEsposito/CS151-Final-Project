@@ -45,7 +45,10 @@ void Player::update(float dt) {
     if (vel.length() > Constants::MAX_SPEED) {
         vel *= (Constants::MAX_SPEED / vel.length());
     }
-    playerShape.setPosition(playerShape.getPosition() + (vel * dt));
+
+    pos += vel * dt;
+
+    playerShape.setPosition({(Constants::WINDOW_WIDTH)/2 + vel.x / 10, (Constants::WINDOW_HEIGHT)/2 + vel.y / 10});
     weapon.updateMag(dt);
     healthBar.update(playerHealth, playerShape.getPosition());
 
