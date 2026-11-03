@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 class Chunk
 {
 
@@ -10,16 +12,18 @@ public:
 
     Chunk& initialize(int u, int v);
 
+    void render(sf::RenderWindow& window, const sf::Vector2f& reference);
+
 private:
 
     int u {0}, v {0};
 
     bool initialized {false};
 
-    float corner_upper_left_x {0.0f};
-    float corner_upper_left_y {0.0f};
-    float corner_lower_right_x {0.0f};
-    float corner_lower_right_y {0.0f};
+    sf::Vector2f corner_upper_left {0.0f, 0.0f};
+    sf::Vector2f corner_lower_right {0.0f, 0.0f};
+
+    sf::RectangleShape temp_display;
 
 };
 

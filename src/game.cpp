@@ -91,6 +91,8 @@ void Game::update() {
 
     handleCollisions();
 
+    world.setOrigin(player.getPos());
+
     updateEnemies();
     
     updateTestUI();
@@ -138,10 +140,13 @@ void Game::handleCollisions()
 void Game::render() {
     window.clear(sf::Color::Black);
 
+    // First draw the world background
+    world.renderChunks(window, player.getPos());
+
     // THEN DRAW
     window.draw(test_text);
     window.draw(text_vel);
-    window.draw(player.playerShape);
+    player.render(window);
     window.draw(player.healthBar.getFill());
     window.draw(player.healthBar.getBorder());
 

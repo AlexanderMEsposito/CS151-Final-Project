@@ -80,6 +80,7 @@ class Game {
         // Assets, these are likely to move somewhere else
         const sf::Font CaveatBrush {"assets/fonts/CaveatBrush-Regular.ttf"};
 
+
         /*
         const sf::Font Lacquer("assets/fonts/Lacquer-Regular.ttf");
         const sf::Font Mansalva("assets/fonts/Mansalva-Regular.ttf");
