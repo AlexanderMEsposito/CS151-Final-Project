@@ -10,12 +10,14 @@
  */
 
 #include "../include/player.h"
+#include "../include/healthbar.h"
 #include "../include/constants.h"
 #include <cmath>
 using std::abs;
 
 Player::Player() {
-    setRadius(15);
+    playerHealth = 100;
+    setRadius(30);
     playerShape.setFillColor(sf::Color::Blue);
     vel = {0, 0};
     playerShape.setPosition({(Constants::WINDOW_WIDTH)/2, (Constants::WINDOW_HEIGHT)/2});
@@ -45,6 +47,7 @@ void Player::update(float dt) {
     }
     playerShape.setPosition(playerShape.getPosition() + (vel * dt));
     weapon.updateMag(dt);
+    healthBar.update(playerHealth, playerShape.getPosition());
 
 }
 void Player::handleInput(sf::Vector2f &mousePos, float &dt) {

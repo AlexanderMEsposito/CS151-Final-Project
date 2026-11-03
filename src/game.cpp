@@ -142,6 +142,8 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     window.draw(player.playerShape);
+    window.draw(player.healthBar.getFill());
+    window.draw(player.healthBar.getBorder());
 
     drawEnemies();
 
