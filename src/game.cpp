@@ -38,6 +38,9 @@ window(
     enemies.push_back(
         Enemy({0.0f, Constants::WINDOW_HEIGHT})
     );
+    enemies.push_back(
+        Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
+    );
 
 }
 
@@ -86,6 +89,8 @@ void Game::update() {
     // Update objects
     player.update(dt);
 
+    handleCollisions();
+
     updateEnemies();
     
     updateTestUI();
@@ -113,6 +118,20 @@ void Game::updateTestUI()
     
 }
 
+void Game::handleCollisions()
+{
+    for (Enemy& e : enemies)
+    {
+        for (Enemy& other : enemies)
+        {
+            if (&e != &other)
+            {
+                e.collide(other);
+            }
+        }
+    }
+}
+
 // ------------------------ ------------------------ ------------------------ ------------------------
 // ------------------------ ------------------------ ------------------------ ------------------------
 
@@ -123,6 +142,8 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     window.draw(player.playerShape);
+    window.draw(player.healthBar.getFill());
+    window.draw(player.healthBar.getBorder());
 
     drawEnemies();
 

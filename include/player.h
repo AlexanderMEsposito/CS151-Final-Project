@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../include/weapon.h"
+#include "../include/healthbar.h"
 
 class Player {
     public:
@@ -24,6 +25,7 @@ class Player {
         const sf::Vector2f& getPos() const;
 
         sf::CircleShape playerShape;
+        HealthBar healthBar;
         Weapon weapon;
 
 
@@ -33,7 +35,7 @@ class Player {
         sf::Vector2f pos;
         sf::Vector2f inputDir;
         //Double
-        float playerHealth;
+        float playerHealth = 100;
 
         
 };
