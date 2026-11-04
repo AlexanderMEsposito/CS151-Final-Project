@@ -17,8 +17,11 @@
 #include "../include/constants.h"
 
 #include "../include/world.h"
+#include <ctime>
 
 #include <vector>
+
+
 
 class Game {
     public:
@@ -31,6 +34,10 @@ class Game {
         // Input
 
         void handleInput();
+
+
+        void spawnEnemies();
+
 
         // ------------------------
         // Update

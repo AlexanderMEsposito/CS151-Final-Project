@@ -68,3 +68,6 @@ Testing/
 .cache/
 
 .vscode/
+
+# dynamic linked libraries (SFML)
+*.dll

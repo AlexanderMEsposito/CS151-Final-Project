@@ -34,13 +34,16 @@ window(
     text_vel.setPosition({0, 200});
 
     // Spawn test enemies
-    enemies.emplace_back();
-    enemies.push_back(
-        Enemy({0.0f, Constants::WINDOW_HEIGHT})
-    );
-    enemies.push_back(
-        Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
-    );
+    // enemies.emplace_back();
+    // enemies.push_back(
+    //     Enemy({0.0f, Constants::WINDOW_HEIGHT})
+    // );
+    // enemies.push_back(
+    //     Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
+    // );
+
+    spawnEnemies();
+
 
 }
 
@@ -97,6 +100,28 @@ void Game::update() {
     
     updateTestUI();
 }
+
+// ------------------------ ------------------------ ------------------------
+
+void Game::spawnEnemies()
+{
+    // seed randomization
+    std::srand(static_cast<unsigned>(time(NULL)));
+
+    
+    // randomizes enemy position through rand (Vector2f needs floats and rand needs ints)
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+
+}
+
+
+
+
+
+
 
 // ------------------------ ------------------------ ------------------------
 
