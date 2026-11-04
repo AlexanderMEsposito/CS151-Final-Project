@@ -15,4 +15,9 @@ namespace Constants {
     // ---------------------------------------------
     // WORLD
     inline constexpr float CHUNK_SIZE = 1000;
+
+    // ---------------------------------------------
+    // ENEMIES
+    inline constexpr int MAX_ENEMIES = 5;
+    
 }
