@@ -109,9 +109,11 @@ void Game::spawnEnemies()
     std::srand(static_cast<unsigned>(time(NULL)));
 
     
-    // randomizes enemy position through rand (Vector2f needs floats and rand needs ints)
+    // randomizes enemy position through rand (Vector2f needs floats and rand needs ints))
+    // first enemy
     enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
         static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    // second enemy
     enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
         static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
 
