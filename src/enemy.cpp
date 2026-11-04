@@ -67,7 +67,7 @@ void Enemy::friction(float dt)
 void Enemy::clampSpeed()
 {
     // Get ratio of current speed to desired speed
-    float rate = vel.lengthSquared() / Constants::speed;
+    float rate = vel.lengthSquared() / speed;
 
     if (rate > 1)
     {
@@ -99,7 +99,7 @@ void Enemy::ai(float dt, Player& player)
         
 
     // Accelerate based on move direction
-    accelerate(moveDir, dt * Constants::acceleration);
+    accelerate(moveDir, dt * acceleration);
 }
 
 /**

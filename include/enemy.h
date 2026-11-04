@@ -64,6 +64,8 @@ class Enemy {
         sf::Vector2f moveDir; // Direction that enemy is moving in
         
         float health = 100.f;
+        float speed {50000.0f}; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
+        float acceleration {1600.0f}; // How fast the enemy speeds up when running
 
         // Render
         sf::CircleShape temp_shape; // Replace with a texture at some point
