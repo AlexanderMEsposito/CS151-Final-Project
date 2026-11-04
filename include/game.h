@@ -54,7 +54,7 @@ class Game {
 
         void render();
 
-        void drawEnemies();
+        void drawEnemies(sf::RenderWindow &window);
 
         // ------------------------
         // Initialization / assets

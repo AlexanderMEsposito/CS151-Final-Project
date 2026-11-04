@@ -6,10 +6,10 @@ HealthBar::HealthBar() {
     height = 10;
     size = {width, height};
     offset = {-50, 50};
-    outlinepx = 4;
+    outlinepx = 3;
     //Colors
     fillColor = sf::Color::Red;
-    borderColor = sf::Color::White;
+    borderColor = sf::Color::Black;
     border.setFillColor(sf::Color::Transparent);
     border.setOutlineColor(borderColor);
     fill.setFillColor(fillColor);
@@ -22,10 +22,17 @@ HealthBar::HealthBar() {
     border.setOrigin({0, (size.y)/2});
 
 }
-void HealthBar::update(float hp, sf::Vector2f playerPos) {
+void HealthBar::update(float hp, sf::Vector2f entityPos) {
     fill.setSize({size.x * (hp/100), size.y});
-    border.setPosition(playerPos + offset);
-    fill.setPosition(playerPos + offset);
+    border.setPosition(entityPos + offset);
+    fill.setPosition(entityPos + offset);
+
+}
+void HealthBar::render(sf::RenderWindow &window) {
+    if(fill.getSize().x < width) {
+        window.draw(fill);
+        window.draw(border);
+    }
 
 }
 void HealthBar::setSize(float width, float height) {
