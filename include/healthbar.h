@@ -7,7 +7,9 @@ class HealthBar {
         sf::RectangleShape getFill() const;
         void setSize(float width, float height);
         HealthBar();
-        void update(float hp, sf::Vector2f playerPos);
+        void update(float hp, sf::Vector2f entityPos);
+        void render(sf::RenderWindow &window);
+
     private:
         float width, height;
         int outlinepx;

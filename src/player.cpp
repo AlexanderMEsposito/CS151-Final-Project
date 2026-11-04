@@ -124,6 +124,6 @@ const sf::Vector2f& Player::getPos() const
 void Player::render(sf::RenderWindow& window)
 {
     window.draw(playerShape);
-    
+    healthBar.render(window);
     weapon.render(window);
 }

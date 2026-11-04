@@ -174,10 +174,7 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     player.render(window);
-    window.draw(player.healthBar.getFill());
-    window.draw(player.healthBar.getBorder());
-
-    drawEnemies();
+    drawEnemies(window);
 
     // THEN DISPLAY
     window.display();
@@ -185,11 +182,11 @@ void Game::render() {
 
 // ------------------------ ------------------------ ------------------------
 
-void Game::drawEnemies()
+void Game::drawEnemies(sf::RenderWindow &window)
 {
     for (Enemy& e : enemies)
     {
-        window.draw(e.getShape());
+        e.render(window);
     }
 }
 

@@ -13,11 +13,19 @@ namespace Constants {
     inline constexpr float FRICTION = 1000;
 
     // ---------------------------------------------
-    // WORLD
-    inline constexpr float CHUNK_SIZE = 1000;
+        // WORLD
+        inline constexpr float CHUNK_SIZE = 1000;
 
     // ---------------------------------------------
     // ENEMIES
-    inline constexpr int MAX_ENEMIES = 5;
+        // Stats
+            inline constexpr float acceleration = 1600.0f; // How fast the enemy speeds up when running
+            inline constexpr float speed = 50000.0f; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
+
+        // Game
+        inline constexpr int MAX_ENEMIES = 5;
+
+        //Physics
+        inline constexpr float COLLISION_RADIUS = 40;
     
 }
