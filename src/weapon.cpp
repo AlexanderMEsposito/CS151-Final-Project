@@ -16,6 +16,8 @@ Weapon::Weapon()
     beam.setOrigin({0.f, 1.f});
     beam.setFillColor(sf::Color::White);
     beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
+
+    gunFire2.setVolume(25);
 }
 
 
@@ -73,6 +75,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
             if(fire(playerPos, mousePos)) 
             {
                 firing = true;
+                gunFire2.play();
                 fire_timer.restart();
             }
         }

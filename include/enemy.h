@@ -57,6 +57,7 @@ class Enemy {
 
         float sqdist(const Enemy& other);
 
+        bool isDead() const;
         
     private:
         // Motion

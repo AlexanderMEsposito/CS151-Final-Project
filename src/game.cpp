@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include "../include/game.h"
 #include "../include/player.h"
+#include <algorithm>
 
 // ------------------------ ------------------------ ------------------------ ------------------------
 // ------------------------ ------------------------ ------------------------ ------------------------
@@ -139,10 +140,12 @@ void Game::updateEnemies()
     {
         e.update(dt, player);
         beamCollision(e);
-        
-        
     }
+
+    //Loops through list and removes enemy if isDead returns true
+    enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](const Enemy& e) { return e.isDead(); }), enemies.end());
 }
+
 
 // ------------------------ ------------------------ ------------------------
 
@@ -158,31 +161,14 @@ void Game::beamCollision(Enemy& e)
         if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
         {
             e.getHealth() -= player.weapon.damage;
-            
+            juicyImpact.play();
             e.getShape().setFillColor(sf::Color::Red);
             
-            isDead(e);
             
             
         }
     }
 
-
-}
-
-
-// ------------------------ ------------------------ ------------------------
-// checks if enemy is dead
-void Game::isDead(Enemy& e)
-{
-    if(e.getHealth() <= 0.0)
-    {
-        // changes their color to black cause pop_back() crashes the game
-        e.getShape().setFillColor(sf::Color::Black);
-        
-    }
-
-    
 
 }
 

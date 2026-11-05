@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <string>
 
 #include "timer.h"
@@ -52,6 +53,9 @@ private:
     bool isReload = false;
     int magSize;
     int ammo;
+
+    sf::SoundBuffer gunFire2B{"assets/sfx/heavy-gun-fire2.mp3"};
+    sf::Sound gunFire2{gunFire2B};
 
 };
 
