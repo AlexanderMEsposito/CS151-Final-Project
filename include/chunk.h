@@ -25,6 +25,10 @@ private:
 
     sf::RectangleShape temp_display;
 
+    // Generation Data
+    int biome {0};
+    
+    void generate();
 };
 
 
