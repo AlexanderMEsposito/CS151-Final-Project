@@ -7,6 +7,16 @@ namespace Constants {
     inline constexpr float WINDOW_HEIGHT = 1080;
 
     // ---------------------------------------------
+    // HUD
+    inline constexpr sf::Vector2f HP_TEXT_POS = {130, 1030};
+    inline constexpr sf::Vector2f AMMO_TEXT_POS = {1740, 1030};
+    inline constexpr sf::Vector2f AMMO_ICON_POS = {1840, 1000};
+    inline constexpr int HUD_MARGIN_X = 180;    
+    inline constexpr int HUD_MARGIN_Y = 180;   
+    inline constexpr int HP_TEXT_MARGIN_X = 130; 
+    inline constexpr int HP_TEXT_MARGIN_Y = 50;
+
+    // ---------------------------------------------
     // PLAYER
     inline constexpr float PLAYER_ACCEL = 3000;
     inline constexpr float MAX_SPEED = 500;
