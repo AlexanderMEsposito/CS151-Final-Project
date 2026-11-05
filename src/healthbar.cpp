@@ -6,10 +6,10 @@ HealthBar::HealthBar() {
     height = 10;
     size = {width, height};
     offset = {-50, 50};
-    outlinepx = 4;
+    outlinepx = 3;
     //Colors
     fillColor = sf::Color::Red;
-    borderColor = sf::Color::White;
+    borderColor = sf::Color::Black;
     border.setFillColor(sf::Color::Transparent);
     border.setOutlineColor(borderColor);
     fill.setFillColor(fillColor);
@@ -22,14 +22,35 @@ HealthBar::HealthBar() {
     border.setOrigin({0, (size.y)/2});
 
 }
-void HealthBar::update(float hp, sf::Vector2f playerPos) {
-    fill.setSize({size.x * (hp/100), size.y});
-    border.setPosition(playerPos + offset);
-    fill.setPosition(playerPos + offset);
+void HealthBar::update(float hp, sf::Vector2f entityPos) {
+    fill.setSize({size.x * (hp / 100), size.y});
+    border.setSize({size});
+    border.setPosition(entityPos + offset);
+    fill.setPosition(entityPos + offset);
 
+}
+void HealthBar::render(sf::RenderWindow &window) {
+    if (!isHud) {
+        if(fill.getSize().x < width) {
+            window.draw(fill);
+            window.draw(border);
+        }
+    } else {
+        window.draw(fill);
+        window.draw(border);
+    }
+
+
+}
+void HealthBar::setIsHud(bool b) {
+    isHud = b;
 }
 void HealthBar::setSize(float width, float height) {
     size = {width, height};
+}
+void HealthBar::setOutline(sf::Color color, float thickness) {
+    border.setOutlineColor(color);
+    border.setOutlineThickness(thickness);
 }
 sf::RectangleShape HealthBar::getBorder() const{
     return border;

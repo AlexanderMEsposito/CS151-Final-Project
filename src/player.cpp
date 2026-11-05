@@ -50,8 +50,6 @@ void Player::update(float dt) {
 
     playerShape.setPosition({(Constants::WINDOW_WIDTH)/2 + vel.x / 10, (Constants::WINDOW_HEIGHT)/2 + vel.y / 10});
     weapon.updateMag(dt);
-    healthBar.update(playerHealth, playerShape.getPosition());
-
 }
 void Player::handleInput(sf::Vector2f &mousePos, float &dt) {
     //reset input dir per tick
@@ -120,10 +118,11 @@ const sf::Vector2f& Player::getPos() const
 {
     return pos;
 }
-
+float Player::getPlayerHealth() const{
+    return playerHealth;
+}
 void Player::render(sf::RenderWindow& window)
 {
     window.draw(playerShape);
-    
     weapon.render(window);
 }

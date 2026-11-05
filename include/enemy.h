@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <player.h>
+#include "player.h"
+#include "healthbar.h"
 
 class Enemy {
     public:
@@ -50,7 +51,7 @@ class Enemy {
 
         sf::CircleShape& getShape() {return temp_shape;}
 
-        void draw(sf::RenderWindow& window);
+        void render(sf::RenderWindow& window);
 
         void collide(Enemy& other);
 
@@ -66,9 +67,12 @@ class Enemy {
         
         // Stats
         float health {40.0f};
-        float speed {100000.0f}; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
+        float speed {50000.0f}; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
         float acceleration {1600.0f}; // How fast the enemy speeds up when running
 
         // Render
         sf::CircleShape temp_shape; // Replace with a texture at some point
+
+        //Objects
+        HealthBar healthBar;
 };

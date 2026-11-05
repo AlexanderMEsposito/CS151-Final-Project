@@ -97,7 +97,7 @@ void Game::update() {
     world.setOrigin(player.getPos());
 
     updateEnemies();
-    
+    hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), 20);
     updateTestUI();
 }
 
@@ -225,10 +225,8 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     player.render(window);
-    window.draw(player.healthBar.getFill());
-    window.draw(player.healthBar.getBorder());
-
-    drawEnemies();
+    drawEnemies(window);
+    hud.render(window);
 
     // THEN DISPLAY
     window.display();
@@ -236,11 +234,11 @@ void Game::render() {
 
 // ------------------------ ------------------------ ------------------------
 
-void Game::drawEnemies()
+void Game::drawEnemies(sf::RenderWindow &window)
 {
     for (Enemy& e : enemies)
     {
-        window.draw(e.getShape());
+        e.render(window);
     }
 }
 
