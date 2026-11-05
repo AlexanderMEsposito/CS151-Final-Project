@@ -97,7 +97,7 @@ void Game::update() {
     world.setOrigin(player.getPos());
 
     updateEnemies();
-    
+    hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), 20);
     updateTestUI();
 }
 
@@ -175,6 +175,7 @@ void Game::render() {
     window.draw(text_vel);
     player.render(window);
     drawEnemies(window);
+    hud.render(window);
 
     // THEN DISPLAY
     window.display();
