@@ -6,6 +6,7 @@ Enemy::Enemy()
 {
     setRadius(20);
     temp_shape.setFillColor(sf::Color::Green);
+    healthBar.setSize(70, 8);
 }
 
 // Spawn at a specific location
@@ -43,6 +44,8 @@ void Enemy::update(float dt, Player& player)
 
     temp_shape.setPosition(pos - player.getPos() + screen_center);
 
+    healthBar.update(health, temp_shape.getPosition());
+
 }
 
 void Enemy::friction(float dt)
@@ -74,10 +77,11 @@ void Enemy::clampSpeed()
     }
 }
 
-void Enemy::draw(sf::RenderWindow& window)
+void Enemy::render(sf::RenderWindow& window)
 {
 
     window.draw(temp_shape);
+    healthBar.render(window);
 
 }
 
@@ -111,12 +115,10 @@ float Enemy::sqdist(const Enemy& other)
 
 void Enemy::collide(Enemy& other)
 {   
-    float collision_radius = 20;
-
-    if (sqdist(other) < collision_radius * collision_radius)
+    if (sqdist(other) < Constants::COLLISION_RADIUS * Constants::COLLISION_RADIUS)
     {
         // Vector pointing from this enemy to the other enemy
-        sf::Vector2f delta = (other.pos - pos).normalized() * (collision_radius / 2.0f);
+        sf::Vector2f delta = (other.pos - pos).normalized() * (Constants::COLLISION_RADIUS / 2.0f);
 
         // Push the two enemies apart
         vel -= delta;

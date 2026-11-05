@@ -34,13 +34,16 @@ window(
     text_vel.setPosition({0, 200});
 
     // Spawn test enemies
-    enemies.emplace_back();
-    enemies.push_back(
-        Enemy({0.0f, Constants::WINDOW_HEIGHT})
-    );
-    enemies.push_back(
-        Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
-    );
+    // enemies.emplace_back();
+    // enemies.push_back(
+    //     Enemy({0.0f, Constants::WINDOW_HEIGHT})
+    // );
+    // enemies.push_back(
+    //     Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
+    // );
+
+    spawnEnemies();
+
 
 }
 
@@ -94,9 +97,33 @@ void Game::update() {
     world.setOrigin(player.getPos());
 
     updateEnemies();
-    
+    hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), 20);
     updateTestUI();
 }
+
+// ------------------------ ------------------------ ------------------------
+
+void Game::spawnEnemies()
+{
+    // seed randomization
+    std::srand(static_cast<unsigned>(time(NULL)));
+
+    
+    // randomizes enemy position through rand (Vector2f needs floats and rand needs ints))
+    // first enemy
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    // second enemy
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+
+}
+
+
+
+
+
+
 
 // ------------------------ ------------------------ ------------------------
 
@@ -147,10 +174,8 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     player.render(window);
-    window.draw(player.healthBar.getFill());
-    window.draw(player.healthBar.getBorder());
-
-    drawEnemies();
+    drawEnemies(window);
+    hud.render(window);
 
     // THEN DISPLAY
     window.display();
@@ -158,11 +183,11 @@ void Game::render() {
 
 // ------------------------ ------------------------ ------------------------
 
-void Game::drawEnemies()
+void Game::drawEnemies(sf::RenderWindow &window)
 {
     for (Enemy& e : enemies)
     {
-        window.draw(e.getShape());
+        e.render(window);
     }
 }
 
