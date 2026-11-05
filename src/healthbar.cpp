@@ -23,20 +23,34 @@ HealthBar::HealthBar() {
 
 }
 void HealthBar::update(float hp, sf::Vector2f entityPos) {
-    fill.setSize({size.x * (hp/100), size.y});
+    fill.setSize({size.x * (hp / 100), size.y});
+    border.setSize({size});
     border.setPosition(entityPos + offset);
     fill.setPosition(entityPos + offset);
 
 }
 void HealthBar::render(sf::RenderWindow &window) {
-    if(fill.getSize().x < width) {
+    if (!isHud) {
+        if(fill.getSize().x < width) {
+            window.draw(fill);
+            window.draw(border);
+        }
+    } else {
         window.draw(fill);
         window.draw(border);
     }
 
+
+}
+void HealthBar::setIsHud(bool b) {
+    isHud = b;
 }
 void HealthBar::setSize(float width, float height) {
     size = {width, height};
+}
+void HealthBar::setOutline(sf::Color color, float thickness) {
+    border.setOutlineColor(color);
+    border.setOutlineThickness(thickness);
 }
 sf::RectangleShape HealthBar::getBorder() const{
     return border;

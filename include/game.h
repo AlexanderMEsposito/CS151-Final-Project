@@ -13,7 +13,7 @@
 #include "../include/player.h"
 #include "../include/enemy.h"
 #include "../include/menuscreen.h"
-
+#include "../include/hud.h"
 #include "../include/constants.h"
 
 #include "../include/world.h"
@@ -81,6 +81,8 @@ class Game {
 
         std::vector<Enemy> enemies; // List of all enemies in the world
 
+        //HUD
+        HUD hud;
         // World
         World world;
 

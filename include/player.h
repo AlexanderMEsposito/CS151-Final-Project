@@ -23,9 +23,9 @@ class Player {
         //Getter
         sf::Vector2f getVel();
         const sf::Vector2f& getPos() const;
+        float getPlayerHealth() const;
 
         sf::CircleShape playerShape;
-        HealthBar healthBar;
         Weapon weapon;
 
 
