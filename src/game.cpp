@@ -116,6 +116,11 @@ void Game::spawnEnemies()
     // second enemy
     enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
         static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    // third enemy
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+
+    
 
 }
 
@@ -133,8 +138,54 @@ void Game::updateEnemies()
     for (Enemy& e : enemies)
     {
         e.update(dt, player);
+        beamCollision(e);
+        
+        
     }
 }
+
+// ------------------------ ------------------------ ------------------------
+
+// Called in updateEnemies(), checks when the fire button is pressed
+// if there is collision between the enemy and the player weapon beam
+// if so, changes the color and subtracts from the enemies health
+void Game::beamCollision(Enemy& e)
+{
+
+    if(player.weapon.firing == true)
+    {
+        // checks if beam and enemy are intersecting and if the gun is being fired 
+        if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
+        {
+            e.getHealth() -= player.weapon.damage;
+            
+            e.getShape().setFillColor(sf::Color::Red);
+            
+            isDead(e);
+            
+            
+        }
+    }
+
+
+}
+
+
+// ------------------------ ------------------------ ------------------------
+// checks if enemy is dead
+void Game::isDead(Enemy& e)
+{
+    if(e.getHealth() <= 0.0)
+    {
+        // changes their color to black cause pop_back() crashes the game
+        e.getShape().setFillColor(sf::Color::Black);
+        
+    }
+
+    
+
+}
+
 
 // ------------------------ ------------------------ ------------------------
 

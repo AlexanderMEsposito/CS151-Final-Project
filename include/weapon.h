@@ -37,7 +37,8 @@ public:
     bool firing = false; // If the weapon is currently firing
     bool ready = true; // If the weapon is ready to fire
 
-    Timer fire_timer {.02f};
+    
+    Timer fire_timer {.015f};
 
     int getAmmo() const;
     void reload();

@@ -21,6 +21,8 @@ class Enemy {
 
         sf::Vector2f getVel() {return vel;}
 
+        float& getHealth() {return health;}
+
         /**
          * @brief Adds the given acceleration to the velocity, scaled by delta time.
          * 
@@ -63,7 +65,7 @@ class Enemy {
         sf::Vector2f moveDir; // Direction that enemy is moving in
         
         // Stats
-        float health {1.0f};
+        float health {40.0f};
         float speed {100000.0f}; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
         float acceleration {1600.0f}; // How fast the enemy speeds up when running
 
