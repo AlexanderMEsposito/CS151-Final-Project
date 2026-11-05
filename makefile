@@ -5,7 +5,7 @@ FLAGS = -std=c++17 -Wall -I$(SFML_DIR)/include -Iinclude
 LDFLAGS = -L$(SFML_DIR)/lib
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o noise.o
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h include/weapon.h include/timer.h include/healthbar.h
@@ -36,7 +36,9 @@ healthbar.o: src/healthbar.cpp include/healthbar.h
 
 world.o: src/world.cpp include/world.h include/chunk.h
 
-chunk.o: src/chunk.cpp include/chunk.h
+chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h
+
+noise.o: src/noise.cpp include/noise.h
 
 run: game
 	.\game.exe
