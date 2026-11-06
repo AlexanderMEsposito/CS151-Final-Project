@@ -101,12 +101,15 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
     }
 }
 
-void Weapon::render(sf::RenderWindow& window)
+void Weapon::render(sf::RenderWindow& window, sf::RectangleShape& reloadBar)
 {
 
     if (firing)
     {
         window.draw(beam);
+    }
+    if (isReload) {
+        window.draw(reloadBar);
     }
     
 

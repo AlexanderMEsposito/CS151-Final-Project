@@ -32,7 +32,7 @@ public:
 
     void update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos);
 
-    void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window, sf::RectangleShape& reloadBar);
 
 
     bool firing = false; // If the weapon is currently firing
