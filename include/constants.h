@@ -21,6 +21,8 @@ namespace Constants {
     inline constexpr float PLAYER_ACCEL = 3000;
     inline constexpr float MAX_SPEED = 500;
     inline constexpr float FRICTION = 1000;
+    inline constexpr sf::Vector2f DEFAULT_RELOAD_SIZE = {100, 4};
+    inline constexpr float RELOAD_BAR_Y_MARGIN = 50;
 
     // ---------------------------------------------
         // WORLD

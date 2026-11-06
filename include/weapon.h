@@ -25,7 +25,7 @@ public:
 
     // ------------------------
     // Functions
-    void updateMag(float dt);
+    void updateMag(float dt, sf::RectangleShape& reloadBar);
 
     bool fire(sf::Vector2f playerPos, sf::Vector2f mousePos);
 

@@ -21,6 +21,14 @@ Player::Player() {
     playerShape.setFillColor(sf::Color::Blue);
     vel = {0, 0};
     playerShape.setPosition({(Constants::WINDOW_WIDTH)/2, (Constants::WINDOW_HEIGHT)/2});
+
+    //RELOAD BAR
+    //100 good width for max
+    reloadBar.setSize(Constants::DEFAULT_RELOAD_SIZE);
+    reloadBarOffset = {-1 * (reloadBar.getSize().x / 2.f), Constants::RELOAD_BAR_Y_MARGIN};
+    
+    reloadBar.setFillColor(sf::Color::White);
+    reloadBar.setOrigin({0, reloadBar.getSize().y / 2});
 }
 void Player::setRadius(float r) {
     playerShape.setRadius(r);
@@ -49,7 +57,10 @@ void Player::update(float dt) {
     pos += vel * dt;
 
     playerShape.setPosition({(Constants::WINDOW_WIDTH)/2 + vel.x / 10, (Constants::WINDOW_HEIGHT)/2 + vel.y / 10});
-    weapon.updateMag(dt);
+    //updates mag and reloadBar
+    weapon.updateMag(dt, reloadBar);
+    //update reloadBar position after updated length
+    reloadBar.setPosition(playerShape.getPosition() + reloadBarOffset);
 }
 void Player::handleInput(sf::Vector2f &mousePos, float &dt) {
     //reset input dir per tick
@@ -124,5 +135,6 @@ float Player::getPlayerHealth() const{
 void Player::render(sf::RenderWindow& window)
 {
     window.draw(playerShape);
+    window.draw(reloadBar);
     weapon.render(window);
 }
