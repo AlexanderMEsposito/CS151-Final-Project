@@ -1,6 +1,9 @@
 #include "weapon.h"
 #include "constants.h"
 
+//testing
+#include <iostream>
+
 // ------------------------ ------------------------ ------------------------
 // Constructors
 
@@ -51,13 +54,19 @@ void Weapon::reload() {
         reloadTimer = reloadTime;
     }
 }
-void Weapon::updateMag(float dt) {
+void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
     if (isReload) {
         reloadTimer -= dt;
+        //std::cout << "dt / reloadTimer: " << dt/reloadTimer << '\n';
+        std::cout << "reloadTimer / reloadTime: " << reloadTimer/reloadTime << '\n';
+        //set length based on fraction of being close to reloading
+        reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * (1 - reloadTimer/reloadTime), reloadBar.getSize().y});
         if (reloadTimer <= 0) {
             ammo += 1;
+            std::cout << "Ammo added!" << std::endl;
             if (ammo == magSize) {
                 isReload = false;
+                std::cout << "Mag full." << std::endl;
             } else reloadTimer = reloadTime;
         }
     }
