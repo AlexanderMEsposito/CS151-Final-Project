@@ -21,8 +21,8 @@ Chunk& Chunk::initialize(int U, int V)
     corner_lower_right.x = (u + 1) * Constants::CHUNK_SIZE;
     corner_lower_right.y = (v + 1) * Constants::CHUNK_SIZE;
 
-    temp_display.setSize({Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
-    temp_display.setFillColor({25, uint8_t(75 + 1 * ((u + v) % 2)), 25});
+    display.setSize({Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
+    display.setFillColor({25, uint8_t(75 + 1 * ((u + v) % 2)), 25});
 
     generate();
 
@@ -33,17 +33,18 @@ Chunk& Chunk::initialize(int U, int V)
 
 void Chunk::render(sf::RenderWindow& window, const sf::Vector2f& reference)
 {
-    temp_display.setPosition(corner_upper_left - reference);
+    display.setPosition(corner_upper_left - reference);
 
-    window.draw(temp_display);
+    window.draw(display);
 }
 
 void Chunk::generate()
 {
     float val = noise(float(u) / 2, float(v) / 2);
 
-    int green = 60 + int(val * 30);
+    int green = 155 + int(val * 100);
 
-    temp_display.setFillColor({25, uint8_t(green), 25});
+    display.setFillColor({255, uint8_t(green), 255});
+    display.setTexture(&material);
 
 }

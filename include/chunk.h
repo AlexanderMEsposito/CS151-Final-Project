@@ -23,7 +23,8 @@ private:
     sf::Vector2f corner_upper_left {0.0f, 0.0f};
     sf::Vector2f corner_lower_right {0.0f, 0.0f};
 
-    sf::RectangleShape temp_display;
+    sf::RectangleShape display;
+    sf::Texture material {"assets/art/world/grass.png"};
 
     // Generation Data
     int biome {0};
