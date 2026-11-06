@@ -58,9 +58,11 @@ void Game::loadAssets() {}
 // ------------------------ ------------------------ ------------------------ ------------------------
 
 void Game::handleInput() {
+    
     // Process events
     while (const std::optional event = window.pollEvent())
     {
+        menu.handleEvent(*event, window);
         // Close window: exit
         if (event->is<sf::Event::Closed>()) {
             window.close();
@@ -89,6 +91,8 @@ bool Game::running() const
 void Game::update() {
     // Get time between frames
     dt = clock.restart().asSeconds();
+
+    menu.update(dt);
 
     // Update objects
     player.update(dt);
@@ -204,15 +208,22 @@ void Game::handleCollisions()
 void Game::render() {
     window.clear(sf::Color::Black);
 
+
+
     // First draw the world background
     world.renderChunks(window, player.getPos());
 
-    // THEN DRAW
-    window.draw(test_text);
-    window.draw(text_vel);
+    // THEN DRAW ENTITIES
     player.render(window);
     drawEnemies(window);
+
+    // THEN HUD AND UI
+    window.draw(test_text);
+    window.draw(text_vel);
     hud.render(window);
+
+    //TEST, not sure where this should go
+    menu.draw(window);
 
     // THEN DISPLAY
     window.display();

@@ -38,4 +38,11 @@ namespace Constants {
         //Physics
         inline constexpr float COLLISION_RADIUS = 40;
     
+    // COLORS
+    namespace Color {
+        inline constexpr sf::Color toxicGreen(168, 224, 95);
+        
+    }
+
+    
 }

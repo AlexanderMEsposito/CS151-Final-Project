@@ -14,7 +14,7 @@
 
 class Screen {
     public:
-        virtual void handleEvent(const sf::Event& event) = 0;
+        virtual void handleEvent(const sf::Event& event, sf::RenderWindow &window) = 0;
         virtual void update(float dt) = 0;
         virtual void draw(sf::RenderWindow& window) const = 0;
 
