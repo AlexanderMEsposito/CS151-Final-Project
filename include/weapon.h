@@ -47,8 +47,8 @@ public:
 
 private:
     //per bullet
-    float reloadTime = 0.22f;
-    float reloadTimer = 0.22f;
+
+    Timer reloadTimer {0.22f};
 
     bool isReload = false;
     int magSize;

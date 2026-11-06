@@ -53,23 +53,19 @@ int Weapon::getAmmo() const{
 void Weapon::reload() {
     if (isReload == false && ammo < magSize && firing == false) {
         isReload = true;
-        reloadTimer = reloadTime;
+        reloadTimer.restart();
     }
 }
 void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
     if (isReload) {
-        reloadTimer -= dt;
         //std::cout << "dt / reloadTimer: " << dt/reloadTimer << '\n';
-        std::cout << "reloadTimer / reloadTime: " << reloadTimer/reloadTime << '\n';
         //set length based on fraction of being close to reloading
-        reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * (1 - reloadTimer/reloadTime), reloadBar.getSize().y});
-        if (reloadTimer <= 0) {
+        reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * reloadTimer.progress(), reloadBar.getSize().y});
+        if (reloadTimer.done()) {
             ammo += 1;
-            std::cout << "Ammo added!" << std::endl;
             if (ammo == magSize) {
                 isReload = false;
-                std::cout << "Mag full." << std::endl;
-            } else reloadTimer = reloadTime;
+            } else reloadTimer.restart();
         }
     }
 }
