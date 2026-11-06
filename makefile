@@ -1,8 +1,8 @@
 include config.mk
 
 CC = g++
-FLAGS = -std=c++17 -Wall -I$(SFML_DIR)/include -Iinclude
-LDFLAGS = -L$(SFML_DIR)/lib
+FLAGS = -std=c++17 -Wall -I"$(SFML_DIR)/include" -Iinclude
+LDFLAGS = -L"$(SFML_DIR)/lib"
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o
