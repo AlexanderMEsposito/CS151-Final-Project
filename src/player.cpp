@@ -135,6 +135,5 @@ float Player::getPlayerHealth() const{
 void Player::render(sf::RenderWindow& window)
 {
     window.draw(playerShape);
-    window.draw(reloadBar);
-    weapon.render(window);
+    weapon.render(window, reloadBar);
 }
