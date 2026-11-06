@@ -91,20 +91,20 @@ Shared tuning values (window size, player speed, acceleration, friction, enemy s
 - [x] Enemies chase the player and collide with each other
 - [x] Hitscan weapon aiming with ammo and reloading
 - [x] Health bars
+- [x] Removing dead enemies
+- [x] Ammo / HUD display
+- [x] Hit detection: beam damages the zombie it hits
 
 ## To do
-- [ ] Hit detection: beam damages the zombie it hits
 - [ ] Player taking damage from zombies
-- [ ] Removing dead enemies
 - [ ] Screen system: menu → gameplay → game over (using `Screen`)
 - [ ] Move menu and game music into their screens
-- [ ] Ammo / HUD display
 - [ ] Replace placeholder circles with art
-- [ ] Multiple weapons (handgun, rifle, shotgun, knife) / Weapon wheel
-- [ ] Sound effects
+- [ ] Multiple weapons (handgun, rifle, shotgun, knife) / Weapon wheel / Hotbar
+- [ ] Sound design
 
 ---
 
 ## Credits
 - **The Cool Guys**: Alex Pulsipher, Alexander Esposito, Joseph, Nick
-- Fonts: Caveat Brush, Lacquer, Mansalva, Rubik Dirt, Rubik Wet Paint (Google Fonts, SIL Open Font License)
+- Fonts: Oswald, Caveat Brush, Lacquer, Mansalva, Rubik Dirt, Rubik Wet Paint (Google Fonts, SIL Open Font License)
