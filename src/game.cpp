@@ -12,6 +12,7 @@
 #include <SFML/Graphics.hpp>
 #include "../include/game.h"
 #include "../include/player.h"
+#include <algorithm>
 
 // ------------------------ ------------------------ ------------------------ ------------------------
 // ------------------------ ------------------------ ------------------------ ------------------------
@@ -116,6 +117,11 @@ void Game::spawnEnemies()
     // second enemy
     enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
         static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    // third enemy
+    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
+        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+
+    
 
 }
 
@@ -133,8 +139,39 @@ void Game::updateEnemies()
     for (Enemy& e : enemies)
     {
         e.update(dt, player);
+        beamCollision(e);
     }
+
+    //Loops through list and removes enemy if isDead returns true
+    enemies.erase(std::remove_if(enemies.begin(), enemies.end(), [](const Enemy& e) { return e.isDead(); }), enemies.end());
 }
+
+
+// ------------------------ ------------------------ ------------------------
+
+// Called in updateEnemies(), checks when the fire button is pressed
+// if there is collision between the enemy and the player weapon beam
+// if so, changes the color and subtracts from the enemies health
+void Game::beamCollision(Enemy& e)
+{
+
+    if(player.weapon.firing == true)
+    {
+        // checks if beam and enemy are intersecting and if the gun is being fired 
+        if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
+        {
+            e.getHealth() -= player.weapon.damage;
+            juicyImpact.play();
+            e.getShape().setFillColor(sf::Color::Red);
+            
+            
+            
+        }
+    }
+
+
+}
+
 
 // ------------------------ ------------------------ ------------------------
 

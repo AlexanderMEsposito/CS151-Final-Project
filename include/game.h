@@ -10,6 +10,9 @@
  */
 #pragma once
 
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+
 #include "../include/player.h"
 #include "../include/enemy.h"
 #include "../include/menuscreen.h"
@@ -49,6 +52,7 @@ class Game {
         void updateEnemies();
         void updateTestUI();
         void handleCollisions();
+        void beamCollision(Enemy& e);
 
         // ------------------------
 
@@ -89,6 +93,11 @@ class Game {
         // Assets, these are likely to move somewhere else
         const sf::Font CaveatBrush {"assets/fonts/CaveatBrush-Regular.ttf"};
 
+        // SFX
+        sf::SoundBuffer punchB{"assets/sfx/punch.mp3"};
+        sf::SoundBuffer juicyImpactB{"assets/sfx/juicy-bullet-impact.mp3"};
+        sf::Sound punch{punchB};
+        sf::Sound juicyImpact{juicyImpactB};
 
         /*
         const sf::Font Lacquer("assets/fonts/Lacquer-Regular.ttf");
