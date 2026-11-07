@@ -37,5 +37,7 @@ class Player {
         //Double
         float playerHealth = 100;
 
+        sf::RectangleShape reloadBar;
+        sf::Vector2f reloadBarOffset;
         
 };

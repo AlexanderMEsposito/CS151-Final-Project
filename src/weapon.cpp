@@ -1,6 +1,9 @@
 #include "weapon.h"
 #include "constants.h"
 
+//testing
+#include <iostream>
+
 // ------------------------ ------------------------ ------------------------
 // Constructors
 
@@ -16,6 +19,8 @@ Weapon::Weapon()
     beam.setOrigin({0.f, 1.f});
     beam.setFillColor(sf::Color::White);
     beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
+
+    gunFire2.setVolume(25);
 }
 
 
@@ -48,17 +53,19 @@ int Weapon::getAmmo() const{
 void Weapon::reload() {
     if (isReload == false && ammo < magSize && firing == false) {
         isReload = true;
-        reloadTimer = reloadTime;
+        reloadTimer.restart();
     }
 }
-void Weapon::updateMag(float dt) {
+void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
     if (isReload) {
-        reloadTimer -= dt;
-        if (reloadTimer <= 0) {
+        //std::cout << "dt / reloadTimer: " << dt/reloadTimer << '\n';
+        //set length based on fraction of being close to reloading
+        reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * reloadTimer.progress(), reloadBar.getSize().y});
+        if (reloadTimer.done()) {
             ammo += 1;
             if (ammo == magSize) {
                 isReload = false;
-            } else reloadTimer = reloadTime;
+            } else reloadTimer.restart();
         }
     }
 }
@@ -73,6 +80,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
             if(fire(playerPos, mousePos)) 
             {
                 firing = true;
+                gunFire2.play();
                 fire_timer.restart();
             }
         }
@@ -89,12 +97,15 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
     }
 }
 
-void Weapon::render(sf::RenderWindow& window)
+void Weapon::render(sf::RenderWindow& window, sf::RectangleShape& reloadBar)
 {
 
     if (firing)
     {
         window.draw(beam);
+    }
+    if (isReload) {
+        window.draw(reloadBar);
     }
     
 

@@ -125,3 +125,8 @@ void Enemy::collide(Enemy& other)
         other.vel += delta;
     }
 }
+bool Enemy::isDead() const{
+    if (health <= 0) {
+        return true;
+    } else return false;
+}
