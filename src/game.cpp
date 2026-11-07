@@ -33,16 +33,11 @@ window(
     test_text.setPosition({0.f, 100.f});
     text_vel.setPosition({0, 200});
 
-    // Spawn test enemies
-    // enemies.emplace_back();
-    // enemies.push_back(
-    //     Enemy({0.0f, Constants::WINDOW_HEIGHT})
-    // );
-    // enemies.push_back(
-    //     Enemy({0.0f, Constants::WINDOW_HEIGHT / 2})
-    // );
 
-    spawnEnemies();
+    // seed randomization
+    std::srand(static_cast<unsigned>(time(NULL)));
+
+    spawnEnemies(3, {0, 0}, {Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
 
 
 }
@@ -103,19 +98,30 @@ void Game::update() {
 
 // ------------------------ ------------------------ ------------------------
 
-void Game::spawnEnemies()
+/**
+ * @brief Spawns a number of enemies equal to quantity. Each enemy will spawn at a random position between bound_a and bound_b.
+ * 
+ * @param quantity # of enemies to spawn
+ * @param bound_a Top left corner of the area enemies can spawn in
+ * @param bound_b Bottom left corner of the area enemies can spawn in
+ */
+void Game::spawnEnemies(int quantity, const sf::Vector2f& bound_a, const sf::Vector2f& bound_b)
 {
-    // seed randomization
-    std::srand(static_cast<unsigned>(time(NULL)));
-
     
-    // randomizes enemy position through rand (Vector2f needs floats and rand needs ints))
-    // first enemy
-    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
-        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
-    // second enemy
-    enemies.push_back(Enemy({static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_WIDTH)),
-        static_cast<float>(rand() % static_cast<int>(Constants::WINDOW_HEIGHT))}));
+    sf::Vector2f delta = bound_b - bound_a;
+
+    for (int i {}; i < quantity; i++)
+    {
+        // randomizes enemy position through rand
+        enemies.push_back(
+            Enemy({
+                // rand() / RAND_MAX generates a value 0 .. 1
+                bound_a.x + delta.x * rand() / RAND_MAX,
+                bound_a.y + delta.y * rand() / RAND_MAX
+            })
+        );
+    }
+    
 
 }
 

@@ -6,12 +6,14 @@
 
 #include <map>
 
+class Game; // Forward declaration
+
 class World
 {
 
 public:
 
-    World() {};
+    World(Game* owner): game(owner) {};
 
     void setOrigin(sf::Vector2f origin);
 
@@ -37,6 +39,9 @@ private:
     int load_dist = 2;
 
     std::map<int, std::map<int, Chunk>> chunk_data;
+
+    // World should know about the Game object (for enemy spawning, etc.)
+    Game* game {};
 
 };
 

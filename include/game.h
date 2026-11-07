@@ -36,7 +36,7 @@ class Game {
         void handleInput();
 
 
-        void spawnEnemies();
+        void spawnEnemies(int quantity, const sf::Vector2f& bound_a, const sf::Vector2f& bound_b);
 
 
         // ------------------------
@@ -84,7 +84,7 @@ class Game {
         //HUD
         HUD hud;
         // World
-        World world;
+        World world {this};
 
         // Assets, these are likely to move somewhere else
         const sf::Font CaveatBrush {"assets/fonts/CaveatBrush-Regular.ttf"};

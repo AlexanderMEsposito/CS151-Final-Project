@@ -35,9 +35,9 @@ timer.o: src/timer.cpp include/timer.h
 
 healthbar.o: src/healthbar.cpp include/healthbar.h include/player.h
 
-world.o: src/world.cpp include/world.h include/chunk.h
+world.o: src/world.cpp include/world.h include/chunk.h include/game.h
 
-chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h
+chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h
 
 noise.o: src/noise.cpp include/noise.h
 
