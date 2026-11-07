@@ -1,9 +1,11 @@
 #include "world.h"
 #include "constants.h"
 
+#include "../include/game.h"
+
 Chunk& World::access_chunk_at(int row, int column)
 {
-    return chunk_data[row][column].initialize(row, column);
+    return chunk_data[row][column].initialize(row, column, game);
 }
 
 void World::setOrigin(sf::Vector2f origin)

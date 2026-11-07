@@ -2,17 +2,22 @@
 
 #include <SFML/Graphics.hpp>
 
+class Game; // Forward declaration
+
+
 class Chunk
 {
 
 public:
 
     Chunk() {};
-    Chunk(int u, int v);
+    Chunk(int u, int v, Game* owner);
 
-    Chunk& initialize(int u, int v);
+    Chunk& initialize(int u, int v, Game* owner);
 
     void render(sf::RenderWindow& window, const sf::Vector2f& reference);
+
+    sf::Vector2i Twist2(int U, int V);
 
 private:
 
@@ -30,6 +35,9 @@ private:
     int biome {0};
     
     void generate();
+
+    // Pointer to game
+    Game* game {};
 };
 
 
