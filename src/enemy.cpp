@@ -44,7 +44,7 @@ void Enemy::update(float dt, Player& player)
 
     temp_shape.setPosition(pos - player.getPos() + screen_center);
 
-    healthBar.update(health, temp_shape.getPosition());
+    healthBar.update(data.health, temp_shape.getPosition());
 
 }
 
@@ -67,7 +67,7 @@ void Enemy::friction(float dt)
 void Enemy::clampSpeed()
 {
     // Get ratio of current speed to desired speed
-    float rate = vel.lengthSquared() / speed;
+    float rate = vel.lengthSquared() / data.speed;
 
     if (rate > 1)
     {
@@ -99,7 +99,7 @@ void Enemy::ai(float dt, Player& player)
         
 
     // Accelerate based on move direction
-    accelerate(moveDir, dt * acceleration);
+    accelerate(moveDir, dt * data.acceleration);
 }
 
 /**
@@ -126,7 +126,7 @@ void Enemy::collide(Enemy& other)
     }
 }
 bool Enemy::isDead() const{
-    if (health <= 0) {
+    if (data.health <= 0) {
         return true;
     } else return false;
 }
