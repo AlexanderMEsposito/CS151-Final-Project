@@ -10,7 +10,7 @@ OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o 
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h include/weapon.h include/timer.h include/healthbar.h
-ENEMY_H  = include/enemy.h $(PLAYER_H)
+ENEMY_H  = include/enemy.h include/enemyData.h include/enemyTemplates.h $(PLAYER_H)
 GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h
 
 %.o:

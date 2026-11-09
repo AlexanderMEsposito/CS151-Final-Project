@@ -3,6 +3,8 @@
 #include "player.h"
 #include "healthbar.h"
 
+#include "enemyData.h"
+
 class Enemy {
     public:
 
@@ -21,8 +23,6 @@ class Enemy {
         void setVel(const sf::Vector2f& v) {vel = v;}
 
         sf::Vector2f getVel() {return vel;}
-
-        float& getHealth() {return health;}
 
         /**
          * @brief Adds the given acceleration to the velocity, scaled by delta time.
@@ -58,6 +58,9 @@ class Enemy {
         float sqdist(const Enemy& other);
 
         bool isDead() const;
+
+        void setData(const EnemyData& Data) {data = Data;}
+        EnemyData& getData() {return data;}
         
     private:
         // Motion
@@ -66,10 +69,8 @@ class Enemy {
 
         sf::Vector2f moveDir; // Direction that enemy is moving in
         
-        // Stats
-        float health {100.0f};
-        float speed {50000.0f}; // This value is pre-squared: a speed of 16 is really a speed of 4 (it speeds up computation)
-        float acceleration {1600.0f}; // How fast the enemy speeds up when running
+        // Data
+        EnemyData data;
 
         // Render
         sf::CircleShape temp_shape; // Replace with a texture at some point

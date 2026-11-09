@@ -12,7 +12,9 @@
 #include <SFML/Graphics.hpp>
 #include "../include/game.h"
 #include "../include/player.h"
+#include "../include/enemyTemplates.h"
 #include <algorithm>
+
 
 // ------------------------ ------------------------ ------------------------ ------------------------
 // ------------------------ ------------------------ ------------------------ ------------------------
@@ -120,6 +122,21 @@ void Game::spawnEnemies(int quantity, const sf::Vector2f& bound_a, const sf::Vec
                 bound_a.y + delta.y * rand() / RAND_MAX
             })
         );
+
+        float enemyKey = float(rand()) / float(RAND_MAX);
+
+        if (enemyKey > .5)
+        {
+            if (enemyKey > .75)
+            {
+                enemies.back().setData(EnemyTypes::sprinter);
+            }
+            else 
+            {
+                enemies.back().setData(EnemyTypes::injured);
+            }
+        }
+            
     }
 
 }
@@ -159,7 +176,7 @@ void Game::beamCollision(Enemy& e)
         // checks if beam and enemy are intersecting and if the gun is being fired 
         if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
         {
-            e.getHealth() -= player.weapon.damage;
+            e.getData().health -= player.weapon.damage;
             juicyImpact.play();
             e.getShape().setFillColor(sf::Color::Red);
             
