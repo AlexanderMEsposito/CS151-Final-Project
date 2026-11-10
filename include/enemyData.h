@@ -2,6 +2,7 @@
 
 #include <string>
 
+// Note: always add new attributes to the end of the list so they don't break constructors in 'enemyTemplates.h'
 
 struct EnemyData
 {
@@ -17,6 +18,9 @@ struct EnemyData
 
     // How quickly the enemy adds velocity to itself
     float acceleration {1600.0f};
+
+    // Should control when the enemy is allowed to spawn (if enemies get more difficult over time)
+    float level {0};
     
 };
 

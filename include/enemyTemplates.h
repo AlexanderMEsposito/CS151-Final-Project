@@ -8,21 +8,24 @@ namespace EnemyTypes
         0,
         100.0f,
         50000.0f,
-        1600.0f
+        1600.0f,
+        0.0f
     };
 
     constexpr EnemyData injured {
         1,
         75.0f,
         4000.0f,
-        1000.0f
+        1000.0f,
+        0.0f
     };
 
     constexpr EnemyData sprinter {
         2,
         125.0f,
         120000.0f,
-        3500.0f
+        3500.0f,
+        0.0f
     };
 
 };

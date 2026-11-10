@@ -13,6 +13,7 @@
 #include "../include/game.h"
 #include "../include/player.h"
 #include "../include/enemyTemplates.h"
+#include "../include/twister.h"
 #include <algorithm>
 
 
@@ -38,7 +39,8 @@ window(
 
 
     // seed randomization
-    std::srand(static_cast<unsigned>(time(NULL)));
+    //std::srand(static_cast<unsigned>(time(NULL)));
+    seed_random();
 
     spawnEnemies(3, {0, 0}, {Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
 
@@ -117,13 +119,12 @@ void Game::spawnEnemies(int quantity, const sf::Vector2f& bound_a, const sf::Vec
         // randomizes enemy position through rand
         enemies.push_back(
             Enemy({
-                // rand() / RAND_MAX generates a value 0 .. 1
-                bound_a.x + delta.x * rand() / RAND_MAX,
-                bound_a.y + delta.y * rand() / RAND_MAX
+                bound_a.x + delta.x * randomf(),
+                bound_a.y + delta.y * randomf()
             })
         );
 
-        float enemyKey = float(rand()) / float(RAND_MAX);
+        float enemyKey = randomf();
 
         if (enemyKey > .5)
         {

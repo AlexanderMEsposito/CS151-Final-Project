@@ -6,12 +6,12 @@ LDFLAGS = -L"$(SFML_DIR)/lib"
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o twister.o
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h include/weapon.h include/timer.h include/healthbar.h
 ENEMY_H  = include/enemy.h include/enemyData.h include/enemyTemplates.h $(PLAYER_H)
-GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h
+GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h include/twister.h
 
 %.o:
 	$(CC) $(FLAGS) -c $< -o $@
@@ -37,11 +37,13 @@ healthbar.o: src/healthbar.cpp include/healthbar.h include/player.h
 
 world.o: src/world.cpp include/world.h include/chunk.h include/game.h
 
-chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h
+chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h include/twister.h
 
 noise.o: src/noise.cpp include/noise.h
 
 hud.o: src/hud.cpp include/hud.h include/healthbar.h
+
+twister.o: src/twister.cpp include/twister.h
 
 run: game
 	.\game.exe
