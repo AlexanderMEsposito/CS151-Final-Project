@@ -4,6 +4,7 @@
 #include "noise.h"
 
 #include "../include/game.h"
+#include "../include/twister.h"
 
 Chunk::Chunk(int U, int V, Game* owner)
 {
@@ -51,13 +52,11 @@ void Chunk::generate()
     display.setFillColor({255, uint8_t(green), 255});
     display.setTexture(&material);
 
-    // Generate a pseudo random integer from the noise
-    sf::Vector2i key = Twist2(u, v);
-
     // In one tenth of the chunks
-    if (key.x % 10 == 0)
+    if (chance(0.1f))
     {
-        game->spawnEnemies(key.y % 10 + 1, corner_upper_left, corner_lower_right);
+        // Spawn 2 - 8 enemies in this chunk
+        game->spawnEnemies(randint(2, 8), corner_upper_left, corner_lower_right);
     }
 
 }
