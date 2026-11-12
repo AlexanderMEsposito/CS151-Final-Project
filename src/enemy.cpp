@@ -114,7 +114,13 @@ void Enemy::collide(Enemy& other)
     if (sqdist(other) < Constants::COLLISION_RADIUS * Constants::COLLISION_RADIUS)
     {
         // Vector pointing from this enemy to the other enemy
-        sf::Vector2f delta = (other.pos - pos).normalized() * (Constants::COLLISION_RADIUS / 2.0f);
+        
+        sf::Vector2f delta = {1.0f, 0.0f};
+
+        if (other.pos != pos)
+            delta = (other.pos - pos).normalized() * (Constants::COLLISION_RADIUS / 2.0f);
+
+            
 
         // Push the two enemies apart
         vel -= delta;
