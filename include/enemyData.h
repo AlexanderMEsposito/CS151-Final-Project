@@ -21,6 +21,12 @@ struct EnemyData
 
     // Should control when the enemy is allowed to spawn (if enemies get more difficult over time)
     float level {0};
+
+    // How much health the enemy removes from the player on hit
+    float damage {10.0};
+
+    // How long the enemy waits before attacking
+    float attackInterval {.8f};
     
 };
 

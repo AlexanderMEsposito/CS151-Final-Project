@@ -1,19 +1,15 @@
 #include "enemy.h"
 #include "constants.h"
 
-// Spawn at world origin (0, 0)
-Enemy::Enemy()
-{
-    setRadius(20);
-    temp_shape.setFillColor(sf::Color::Green);
-    healthBar.setSize(70, 8);
-}
 
 // Spawn at a specific location
 Enemy::Enemy(const sf::Vector2f& spawnpoint): pos(spawnpoint)
 {
     setRadius(20);
+    healthBar.setSize(70, 8);
     temp_shape.setFillColor(sf::Color::Green);
+
+    attackTimer.setDuration(data.attackInterval);
 }
 
 
@@ -129,4 +125,30 @@ bool Enemy::isDead() const{
     if (data.health <= 0) {
         return true;
     } else return false;
+}
+
+/**
+ * @brief Tests for collision with the player. Damages the player if there is a collision.
+ * 
+ * @param player 
+ */
+void Enemy::collidePlayer(Player& player)
+{
+
+    if ((player.getPos() - pos).lengthSquared() < Constants::COLLISION_RADIUS * Constants::COLLISION_RADIUS)
+    {
+        // Vector pointing from this enemy to the player
+        sf::Vector2f delta = (player.getPos() - pos).normalized() * (Constants::COLLISION_RADIUS / 2.0f);
+
+        // Push the two entities apart
+        vel -= delta;
+        player.setVel(player.getVel() + delta);
+
+        if (attackTimer.done())
+        {
+            player.damage(data.damage);
+            attackTimer.restart();
+        }
+    }
+
 }

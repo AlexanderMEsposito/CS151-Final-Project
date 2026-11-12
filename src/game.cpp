@@ -205,6 +205,8 @@ void Game::handleCollisions()
 {
     for (Enemy& e : enemies)
     {
+        e.collidePlayer(player);
+
         for (Enemy& other : enemies)
         {
             if (&e != &other)

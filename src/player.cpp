@@ -137,3 +137,8 @@ void Player::render(sf::RenderWindow& window)
     window.draw(playerShape);
     weapon.render(window, reloadBar);
 }
+
+void Player::damage(float amount)
+{
+    playerHealth -= amount;
+}

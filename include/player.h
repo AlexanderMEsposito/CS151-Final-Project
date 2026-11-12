@@ -25,6 +25,9 @@ class Player {
         const sf::Vector2f& getPos() const;
         float getPlayerHealth() const;
 
+
+        void damage(float amount);
+
         sf::CircleShape playerShape;
         Weapon weapon;
 
