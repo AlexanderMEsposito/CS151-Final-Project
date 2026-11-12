@@ -37,7 +37,12 @@ Weapon::Weapon(std::string name, int dmg, float Range): name(name), damage(dmg),
 
 bool Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
 {
-    if (ammo > 0 && isReload == false) {
+    if (ammo > 0) {
+        if (isReload)
+        {
+            isReload = false;
+        }
+
         beam.setPosition(playerPos);
 
         sf::Vector2f diff = mousePos - playerPos;
@@ -82,6 +87,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
                 firing = true;
                 gunFire2.play();
                 fire_timer.restart();
+                cooldownTimer.restart();
             }
         }
     }
@@ -91,7 +97,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
         firing = false;
     }
 
-    if (!left_click)
+    if (cooldownTimer.done() && (automatic || !left_click))
     {
         ready = true;
     }
