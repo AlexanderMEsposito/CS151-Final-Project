@@ -38,8 +38,10 @@ public:
     bool firing = false; // If the weapon is currently firing
     bool ready = true; // If the weapon is ready to fire
 
+    bool automatic = false; // If false, requires the player to release left mouse before the weapon can fire again
     
     Timer fire_timer {.015f};
+    Timer cooldownTimer {.05f};
 
     int getAmmo() const;
     void reload();
