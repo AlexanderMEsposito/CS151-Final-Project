@@ -11,7 +11,6 @@ class Enemy {
         // ------------------------
         // Constructors
 
-        Enemy();
         Enemy(const sf::Vector2f& spawnpoint);
 
         // ------------------------
@@ -54,6 +53,7 @@ class Enemy {
         void render(sf::RenderWindow& window);
 
         void collide(Enemy& other);
+        void collidePlayer(Player& player);
 
         float sqdist(const Enemy& other);
 
@@ -77,4 +77,6 @@ class Enemy {
 
         //Objects
         HealthBar healthBar;
+
+        Timer attackTimer;
 };
