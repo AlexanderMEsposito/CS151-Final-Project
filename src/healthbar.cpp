@@ -1,4 +1,5 @@
 #include "healthbar.h"
+#include <algorithm>
 
 
 HealthBar::HealthBar() {
@@ -22,8 +23,9 @@ HealthBar::HealthBar() {
     border.setOrigin({0, (size.y)/2});
 
 }
-void HealthBar::update(float hp, sf::Vector2f entityPos) {
-    fill.setSize({size.x * (hp / 100), size.y});
+void HealthBar::update(float ratio, sf::Vector2f entityPos) {
+    ratio = std::clamp(ratio, 0.f, 1.f);
+    fill.setSize({size.x * ratio, size.y});
     border.setSize({size});
     border.setPosition(entityPos + offset);
     fill.setPosition(entityPos + offset);

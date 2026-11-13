@@ -1,6 +1,6 @@
 #include "enemy.h"
 #include "constants.h"
-
+#include "enemyTemplates.h"
 
 // Spawn at a specific location
 Enemy::Enemy(const sf::Vector2f& spawnpoint): pos(spawnpoint)
@@ -39,8 +39,8 @@ void Enemy::update(float dt, Player& player)
     sf::Vector2f screen_center = {Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2};
 
     temp_shape.setPosition(pos - player.getPos() + screen_center);
-
-    healthBar.update(data.health, temp_shape.getPosition());
+    float ratio = data.health / EnemyTypes::all[data.type].health;
+    healthBar.update(ratio, temp_shape.getPosition());
 
 }
 
