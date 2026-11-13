@@ -15,6 +15,7 @@
 #include "../include/enemyTemplates.h"
 #include "../include/twister.h"
 #include <algorithm>
+#include <cstddef>
 
 
 // ------------------------ ------------------------ ------------------------ ------------------------
@@ -156,7 +157,52 @@ void Game::updateEnemies()
     for (Enemy& e : enemies)
     {
         e.update(dt, player);
-        beamCollision(e);
+    }
+
+    std::vector<Bullet>& bullets = player.weapon.getBullets();
+    std::size_t bulletIndex = 0;
+
+
+
+    while (bulletIndex < bullets.size())
+    {
+        Bullet& bullet = bullets[bulletIndex];
+        bullet.update(dt, player.getVel());
+
+        bool hit = false;
+
+        for (Enemy& e : enemies)
+        {
+            float distance = (bullet.getPosition() - e.getShape().getPosition()).length();
+
+            float radius = bullet.getRadius() + e.getShape().getRadius();
+
+            if (distance <= radius)
+            {
+                e.getData().health -= player.weapon.damage;
+                e.getShape().setFillColor(sf::Color::Red);
+                juicyImpact.play();
+
+                hit = true;
+                break;
+            }
+        }
+
+        const sf::Vector2f position = bullet.getPosition();
+        const float margin = bullet.getRadius();
+
+        const bool offscreen =
+            position.x + margin < 0.f || position.x - margin > Constants::WINDOW_WIDTH ||
+            position.y + margin < 0.f || position.y - margin > Constants::WINDOW_HEIGHT;
+
+        if (hit || offscreen)
+        {
+            bullets.erase(bullets.begin() + bulletIndex);
+        }
+        else
+        {
+            ++bulletIndex;
+        }
     }
 
     //Loops through list and removes enemy if isDead returns true
@@ -169,25 +215,25 @@ void Game::updateEnemies()
 // Called in updateEnemies(), checks when the fire button is pressed
 // if there is collision between the enemy and the player weapon beam
 // if so, changes the color and subtracts from the enemies health
-void Game::beamCollision(Enemy& e)
-{
+// void Game::beamCollision(Enemy& e)
+// {
 
-    if(player.weapon.firing == true)
-    {
-        // checks if beam and enemy are intersecting and if the gun is being fired 
-        if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
-        {
-            e.getData().health -= player.weapon.damage;
-            juicyImpact.play();
-            e.getShape().setFillColor(sf::Color::Red);
+//     if(player.weapon.firing == true)
+//     {
+//         // checks if beam and enemy are intersecting and if the gun is being fired 
+//         if(e.getShape().getGlobalBounds().findIntersection(player.weapon.beam.getGlobalBounds()))
+//         {
+//             e.getData().health -= player.weapon.damage;
+//             juicyImpact.play();
+//             e.getShape().setFillColor(sf::Color::Red);
             
             
             
-        }
-    }
+//         }
+//     }
 
 
-}
+// }
 
 
 // ------------------------ ------------------------ ------------------------
@@ -230,6 +276,10 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     player.render(window);
+    for (const Bullet& bullet : player.weapon.getBullets())
+    {
+        bullet.render(window);
+    }
     drawEnemies(window);
     hud.render(window);
 

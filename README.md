@@ -70,7 +70,7 @@ CS151-Final-Project/
 |---|---|---|
 | `Game` | `game.h/.cpp` | Owns the window, clock, player, enemies, and world. Runs input, update and render each frame. `main` just creates a `Game` and loops. |
 | `Player` | `player.h/.cpp` | WASD movement with acceleration, friction and a max speed (all scaled by delta time). Owns a `Weapon` and a `HealthBar`. |
-| `Weapon` | `weapon.h/.cpp` | Hitscan weapon: aims a beam from the player to the mouse, tracks ammo and magazine size, and reloads one round at a time. |
+| `Weapon` | `weapon.h/.cpp` | Fires moving projectiles toward the mouse, tracks ammo and magazine size, and reloads one round at a time. |
 | `Enemy` | `enemy.h/.cpp` | Zombie that accelerates toward the player, with friction, a speed cap, and collision with other enemies. Owns a `HealthBar`. |
 | `HealthBar` | `healthbar.h/.cpp` | Bordered bar that follows an entity and shrinks with its health. |
 | `Timer` | `timer.h/.cpp` | Small countdown helper (used for the weapon's firing flash). |
@@ -89,11 +89,11 @@ Shared tuning values (window size, player speed, acceleration, friction, enemy s
 - [x] Endless chunk-based world
 - [x] Random enemy spawning
 - [x] Enemies chase the player and collide with each other
-- [x] Hitscan weapon aiming with ammo and reloading
+- [x] Projectile weapon aiming with ammo and reloading
 - [x] Health bars
 - [x] Removing dead enemies
 - [x] Ammo / HUD display
-- [x] Hit detection: beam damages the zombie it hits
+- [x] Hit detection: projectile hitboxes damage zombies they hit
 
 ## To do
 - [ ] Player taking damage from zombies
