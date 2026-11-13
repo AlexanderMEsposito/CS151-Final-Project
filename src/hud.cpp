@@ -17,7 +17,8 @@ HUD::HUD() {
 
 }
 void HUD::update(float health, float maxHealth, int ammo, int maxAmmo) {
-    healthBar.update(health, {130, 900});
+    float ratio = health / maxHealth;
+    healthBar.update(ratio, {130, 900});
 
     std::string temp;
     temp = std::to_string(static_cast<int>(health));
