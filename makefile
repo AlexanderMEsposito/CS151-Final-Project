@@ -6,12 +6,12 @@ LDFLAGS = -L"$(SFML_DIR)/lib"
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o twister.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o bullet.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o twister.o
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h include/weapon.h include/timer.h include/healthbar.h
 ENEMY_H  = include/enemy.h include/enemyData.h include/enemyTemplates.h $(PLAYER_H)
-GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h include/twister.h
+GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h include/twister.h include/bullet.h
 
 %.o:
 	$(CC) $(FLAGS) -c $< -o $@
@@ -28,6 +28,8 @@ menuscreen.o: src/menuscreen.cpp include/menuscreen.h include/screen.h
 player.o: src/player.cpp $(PLAYER_H) include/constants.h
 
 weapon.o: src/weapon.cpp include/weapon.h include/timer.h include/constants.h
+
+bullet.o: src/bullet.cpp include/bullet.h
 
 enemy.o: src/enemy.cpp $(ENEMY_H) include/constants.h
 
