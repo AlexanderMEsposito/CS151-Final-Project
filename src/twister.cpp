@@ -45,5 +45,15 @@ bool chance(float x)
 
 
 
+float randrange(float a, float b)
+{
+    return (b - a) * randomf() + a;
+}
+
+
+sf::Vector2f randpoint(const sf::Vector2f& a, const sf::Vector2f& b)
+{
+    return {randrange(a.x, b.x), randrange(a.y, b.y)};
+}
 
 

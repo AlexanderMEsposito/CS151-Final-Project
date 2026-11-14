@@ -10,7 +10,7 @@ public:
     Object(sf::Vector2f spawnpoint);
 
     void update();
-    void render(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window, const sf::Vector2f& reference);
 
 private:
 
@@ -19,7 +19,7 @@ private:
 
     sf::RectangleShape shape;
 
-    static sf::Texture temp_texture {""};
+    sf::Texture temp_texture {"assets/art/objects/tree.png"};
 
 };
 

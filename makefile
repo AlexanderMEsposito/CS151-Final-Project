@@ -6,7 +6,7 @@ LDFLAGS = -L"$(SFML_DIR)/lib"
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o twister.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o enemy.o timer.o healthbar.o world.o chunk.o hud.o noise.o twister.o object.o
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h include/weapon.h include/timer.h include/healthbar.h
@@ -37,13 +37,15 @@ healthbar.o: src/healthbar.cpp include/healthbar.h include/player.h
 
 world.o: src/world.cpp include/world.h include/chunk.h include/game.h
 
-chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h include/twister.h
+chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h include/twister.h 
 
 noise.o: src/noise.cpp include/noise.h
 
 hud.o: src/hud.cpp include/hud.h include/healthbar.h
 
 twister.o: src/twister.cpp include/twister.h
+
+object.o: src/object.cpp include/object.h
 
 run: game
 	.\game.exe

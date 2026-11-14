@@ -1,5 +1,7 @@
 #pragma once
 
+#include <SFML/Graphics.hpp>
+
 
 void seed_random();
 
@@ -30,3 +32,20 @@ float randomf();
  */
 bool chance(float x);
 
+/**
+ * @brief Returns a float ranging from a to b
+ * 
+ * @param a 
+ * @param b 
+ * @return float 
+ */
+float randrange(float a, float b);
+
+/**
+ * @brief Returns a sf::Vector2f at a random point in the box bounded by a and b
+ * 
+ * @param a 
+ * @param b 
+ * @return sf::Vector2f 
+ */
+sf::Vector2f randpoint(const sf::Vector2f& a, const sf::Vector2f& b);

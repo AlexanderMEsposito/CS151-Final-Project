@@ -1,6 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../include/object.h"
+#include "../include/enemy.h"
+#include <vector>
 
 class Game; // Forward declaration
 
@@ -38,6 +41,10 @@ private:
 
     // Pointer to game
     Game* game {};
+
+    // Container
+    std::vector<Object> objects;
+    std::vector<Enemy> enemies;
 };
 
 

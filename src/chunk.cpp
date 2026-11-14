@@ -41,6 +41,11 @@ void Chunk::render(sf::RenderWindow& window, const sf::Vector2f& reference)
     display.setPosition(corner_upper_left - reference);
 
     window.draw(display);
+
+    for (Object& o : objects)
+    {
+        o.render(window, reference);
+    }
 }
 
 void Chunk::generate()
@@ -59,6 +64,13 @@ void Chunk::generate()
         game->spawnEnemies(randint(2, 8), corner_upper_left, corner_lower_right);
     }
 
+    if (chance(0.5f))
+    {
+        // Spawn random tree in the chunk
+        objects.emplace_back(
+            randpoint(corner_upper_left, corner_lower_right)
+        );
+    }
 }
 
 sf::Vector2i Chunk::Twist2(int U, int V){

@@ -4,7 +4,7 @@
 Object::Object(sf::Vector2f spawnpoint): pos(spawnpoint)
 {
 
-    shape.setSize({40, 40});
+    shape.setSize({120, 120});
     shape.setTexture(&temp_texture);
 
 }
@@ -14,7 +14,8 @@ void Object::update()
 {}
 
 
-void Object::render(sf::RenderWindow& window)
-{
+void Object::render(sf::RenderWindow& window, const sf::Vector2f& reference)
+{   
+    shape.setPosition(pos - reference);
     window.draw(shape);
 }
