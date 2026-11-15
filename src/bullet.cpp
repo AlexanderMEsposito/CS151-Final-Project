@@ -7,26 +7,35 @@
  * 
  */
 
+ 
 #include "bullet.h"
 
-Bullet::Bullet(const sf::Texture& texture, sf::Vector2f velocity,
-               sf::Vector2f position, const sf::IntRect& textureRect)
-    : sprite(texture, textureRect), velocity(velocity)
+Bullet::Bullet(sf::Vector2f position, sf::Vector2f velocity)
+    : shape(4.f), previousPosition(position), velocity(velocity)
 {
-    sprite.setPosition(position);
+    shape.setOrigin(shape.getGeometricCenter());
+    shape.setPosition(position);
+    shape.setFillColor(sf::Color::Yellow);
 }
 
-void Bullet::update(float deltaTime)
+void Bullet::update(float deltaTime, sf::Vector2f cameraVelocity)
 {
-    sprite.setPosition(sprite.getPosition() + velocity * deltaTime);
+    previousPosition = shape.getPosition();
+    shape.setPosition(previousPosition + (velocity - cameraVelocity) * deltaTime);
 }
 
-const sf::Sprite& Bullet::getSprite() const
+void Bullet::render(sf::RenderWindow& window) const
 {
-    return sprite;
+    window.draw(shape);
 }
 
 sf::Vector2f Bullet::getPosition() const
 {
-    return sprite.getPosition();
+    return shape.getPosition();
+}
+
+
+float Bullet::getRadius() const
+{
+    return shape.getRadius();
 }

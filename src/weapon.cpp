@@ -10,27 +10,27 @@
 Weapon::Weapon()
 {
     name = "Weapon";
-    damage = 10;
+    damage = 25;
     range = 400.f;
     ammo = 10;
     magSize = 20;
 
-    beam.setSize(sf::Vector2f(range, 2.f));
-    beam.setOrigin({0.f, 1.f});
-    beam.setFillColor(sf::Color::White);
-    beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
+    // beam.setSize(sf::Vector2f(range, 2.f));
+    // beam.setOrigin({0.f, 1.f});
+    // beam.setFillColor(sf::Color::White);
+    // beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
 
     gunFire2.setVolume(25);
 }
 
 
-Weapon::Weapon(std::string name, int dmg, float Range): name(name), damage(dmg), range(Range)
-{
-    beam.setSize(sf::Vector2f(range, 10.f));
-    beam.setOrigin({0.f, 5.f});
-    beam.setFillColor(sf::Color::White);
-    beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
-}
+// Weapon::Weapon(std::string name, int dmg, float Range): name(name), damage(dmg), range(Range)
+// {
+//     beam.setSize(sf::Vector2f(range, 10.f));
+//     beam.setOrigin({0.f, 5.f});
+//     beam.setFillColor(sf::Color::White);
+//     beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
+// }
 
 
 // ------------------------ ------------------------ ------------------------
@@ -43,10 +43,14 @@ bool Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
             isReload = false;
         }
 
-        beam.setPosition(playerPos);
-
+        //beam.setPosition(playerPos);
+        //beam.setRotation(diff.angle());
         sf::Vector2f diff = mousePos - playerPos;
-        beam.setRotation(diff.angle());
+        if (diff.lengthSquared() > 0.f)
+        {
+            constexpr float bulletSpeed = 900.f;
+            bullets.emplace_back(playerPos, diff.normalized() * bulletSpeed);
+        }
         ammo -= 1;
         return true;
     } else return false;
@@ -106,13 +110,21 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
 void Weapon::render(sf::RenderWindow& window, sf::RectangleShape& reloadBar)
 {
 
-    if (firing)
-    {
-        window.draw(beam);
-    }
+    // if (firing)
+    // {
+    //     window.draw(beam);
+    // }
     if (isReload) {
         window.draw(reloadBar);
     }
-    
+}
 
+std::vector<Bullet>& Weapon::getBullets()
+{
+    return bullets;
+}
+
+const std::vector<Bullet>& Weapon::getBullets() const
+{
+    return bullets;
 }

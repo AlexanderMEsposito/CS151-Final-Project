@@ -11,19 +11,20 @@
 
 #include <SFML/Graphics.hpp>
 
-// Represents a bullet fired by the player.
-// Stores the bullet sprite and its movement velocity.
 class Bullet {
 public:
-    Bullet(const sf::Texture& texture, sf::Vector2f velocity,
-           sf::Vector2f position, const sf::IntRect& textureRect);
+    Bullet(sf::Vector2f position, sf::Vector2f velocity);
 
-    void update(float deltaTime);
+    void update(float deltaTime, sf::Vector2f cameraVelocity);
     
-    const sf::Sprite& getSprite() const;
+    void render(sf::RenderWindow& window) const;
     sf::Vector2f getPosition() const;
+    
+    float getRadius() const;
+
 private:
-    sf::Sprite sprite;
+    sf::CircleShape shape;
+    sf::Vector2f previousPosition;
     sf::Vector2f velocity;
 };
 

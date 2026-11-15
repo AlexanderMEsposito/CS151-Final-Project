@@ -3,7 +3,9 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <string>
+#include <vector>
 
+#include "bullet.h"
 #include "timer.h"
 
 class Weapon
@@ -17,7 +19,7 @@ public:
 
     int damage {10};
     float range {500.0f};
-    sf::RectangleShape beam;
+    //sf::RectangleShape beam;
 
     // ------------------------
     // Constructors
@@ -33,6 +35,9 @@ public:
     void update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos);
 
     void render(sf::RenderWindow& window, sf::RectangleShape& reloadBar);
+
+    std::vector<Bullet>& getBullets();
+    const std::vector<Bullet>& getBullets() const;
 
 
     bool firing = false; // If the weapon is currently firing
@@ -55,6 +60,7 @@ private:
     bool isReload = false;
     int magSize;
     int ammo;
+    std::vector<Bullet> bullets;
 
     sf::SoundBuffer gunFire2B{"assets/sfx/heavy-gun-fire2.mp3"};
     sf::Sound gunFire2{gunFire2B};

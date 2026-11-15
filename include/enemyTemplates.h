@@ -28,6 +28,11 @@ namespace EnemyTypes
         0.0f
     };
 
+    constexpr EnemyData all[] = {
+        normal,     // type 0
+        injured,    // type 1
+        sprinter    // type 2
+    };
 };
 
 
