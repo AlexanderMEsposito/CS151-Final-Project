@@ -21,16 +21,8 @@
 // ------------------------ ------------------------ ------------------------ ------------------------
 // ------------------------ ------------------------ ------------------------ ------------------------
 
-Game::Game(): 
-window(
-    sf::VideoMode({
-        static_cast<unsigned>(Constants::WINDOW_WIDTH), 
-        static_cast<unsigned>(Constants::WINDOW_HEIGHT)
-    }), 
-    "Unfinished Zombie Game 2"
-    )
+Game::Game()
 {
-
     window.setPosition({50, 50});
     window.setFramerateLimit(120);
 
@@ -39,8 +31,6 @@ window(
     text_vel.setPosition({0, 200});
 
 
-    // seed randomization
-    //std::srand(static_cast<unsigned>(time(NULL)));
     seed_random();
 
     spawnEnemies(3, {0, 0}, {Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
@@ -58,19 +48,11 @@ void Game::loadAssets() {}
 // ------------------------ ------------------------ ------------------------ ------------------------
 
 void Game::handleInput() {
-    // Process events
-    while (const std::optional event = window.pollEvent())
-    {
-        // Close window: exit
-        if (event->is<sf::Event::Closed>()) {
-            window.close();
-        }
-    }
-
-    sf::Vector2f mouseWorld = window.mapPixelToCoords(sf::Mouse::getPosition(window));
+    
+    window.handleInput();
 
     // Handle input on player
-    player.handleInput(mouseWorld, dt);
+    player.handleInput(window.mouse_pos, dt);
 }
 
 // ------------------------ ------------------------ ------------------------
@@ -269,8 +251,10 @@ void Game::handleCollisions()
 void Game::render() {
     window.clear(sf::Color::Black);
 
+    window.update(player.getPos());
+
     // First draw the world background
-    world.renderChunks(window, player.getPos());
+    world.renderChunks(window);
 
     // THEN DRAW
     window.draw(test_text);
@@ -280,7 +264,7 @@ void Game::render() {
     {
         bullet.render(window);
     }
-    drawEnemies(window);
+    drawEnemies();
     hud.render(window);
 
     // THEN DISPLAY
@@ -289,7 +273,7 @@ void Game::render() {
 
 // ------------------------ ------------------------ ------------------------
 
-void Game::drawEnemies(sf::RenderWindow &window)
+void Game::drawEnemies()
 {
     for (Enemy& e : enemies)
     {

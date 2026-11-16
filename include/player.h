@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "../include/weapon.h"
 #include "../include/healthbar.h"
+#include "../include/renderer.h"
+
 
 class Player {
     public:
@@ -11,14 +13,14 @@ class Player {
         void setVel(sf::Vector2f vel);
 
         //Updates
-        void handleInput(sf::Vector2f &mousePos, float &dt);
+        void handleInput(const sf::Vector2f &mousePos, float &dt);
         void accel(sf::Vector2f a);
         void update(float dt);
 
         void friction(float dt);
 
         // Rendering
-        void render(sf::RenderWindow& window);
+        void render(Renderer& window);
 
         //Getter
         sf::Vector2f getVel();

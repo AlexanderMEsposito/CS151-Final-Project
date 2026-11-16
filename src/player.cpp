@@ -62,7 +62,7 @@ void Player::update(float dt) {
     //update reloadBar position after updated length
     reloadBar.setPosition(playerShape.getPosition() + reloadBarOffset);
 }
-void Player::handleInput(sf::Vector2f &mousePos, float &dt) {
+void Player::handleInput(const sf::Vector2f &mousePos, float &dt) {
     //reset input dir per tick
     inputDir = {0, 0};
     //Process input
@@ -132,7 +132,7 @@ const sf::Vector2f& Player::getPos() const
 float Player::getPlayerHealth() const{
     return playerHealth;
 }
-void Player::render(sf::RenderWindow& window)
+void Player::render(Renderer& window)
 {
     window.draw(playerShape);
     weapon.render(window, reloadBar);

@@ -33,13 +33,13 @@ void World::updateChunks()
     }
 }
 
-void World::renderChunks(sf::RenderWindow& window, const sf::Vector2f reference)
+void World::renderChunks(Renderer& window)
 {   
     for (int row {load_ax}; row <= load_bx; row++)
     {
         for (int column {load_ay}; column <= load_by; column++)
         {
-            access_chunk_at(row, column).render(window, reference);
+            access_chunk_at(row, column).render(window);
         }
     }
 }
