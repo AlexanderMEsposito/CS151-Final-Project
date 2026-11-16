@@ -20,6 +20,9 @@
 #include "../include/constants.h"
 
 #include "../include/world.h"
+
+#include "../include/renderer.h"
+
 #include <ctime>
 
 #include <vector>
@@ -57,7 +60,7 @@ class Game {
 
         void render();
 
-        void drawEnemies(sf::RenderWindow &window);
+        void drawEnemies();
 
         // ------------------------
         // Initialization / assets
@@ -70,8 +73,7 @@ class Game {
 
     private:
         
-        // SETUP WINDOW AND FRAME LIMIT
-        sf::RenderWindow window;
+        Renderer window;
         
         sf::Clock clock;
 

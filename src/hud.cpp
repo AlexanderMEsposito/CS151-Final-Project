@@ -31,7 +31,7 @@ void HUD::update(float health, float maxHealth, int ammo, int maxAmmo) {
     temp += std::to_string(maxAmmo);
     ammoStr.setString(temp);
 }
-void HUD::render(sf::RenderWindow &window) {
+void HUD::render(Renderer &window) {
     healthBar.render(window);
     window.draw(hpStr);
     window.draw(ammoStr);

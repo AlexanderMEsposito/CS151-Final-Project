@@ -14,8 +14,8 @@ void Object::update()
 {}
 
 
-void Object::render(sf::RenderWindow& window, const sf::Vector2f& reference)
+void Object::render(Renderer& window)
 {   
-    shape.setPosition(pos - reference);
+    shape.setPosition(pos - window.world_reference);
     window.draw(shape);
 }

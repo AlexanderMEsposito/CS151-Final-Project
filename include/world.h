@@ -3,6 +3,7 @@
 #include "chunk.h"
 
 #include <SFML/Graphics.hpp>
+#include "../include/renderer.h"
 
 #include <map>
 
@@ -19,7 +20,7 @@ public:
 
     void updateChunks();
 
-    void renderChunks(sf::RenderWindow& window, const sf::Vector2f reference);
+    void renderChunks(Renderer& window);
 
     Chunk& access_chunk_at(int row, int column);
 

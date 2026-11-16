@@ -1,13 +1,14 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "../include/healthbar.h"
+#include "renderer.h"
 
 class HUD {
 
     public:
         HUD();
         void update(float health, float maxHealth, int ammo, int maxAmmo);
-        void render(sf::RenderWindow &window);
+        void render(Renderer &window);
     private:
         HealthBar healthBar;
         sf::Texture bullets{"assets/art/hud/bullets.png"};

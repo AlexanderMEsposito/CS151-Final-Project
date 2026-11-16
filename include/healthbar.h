@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include "renderer.h"
 
 class HealthBar {
     public:
@@ -9,7 +10,7 @@ class HealthBar {
         void setOutline(sf::Color color, float thickness);
         HealthBar();
         void update(float hp, sf::Vector2f entityPos);
-        void render(sf::RenderWindow &window);
+        void render(Renderer &window);
         void setIsHud(bool b);
 
     private:

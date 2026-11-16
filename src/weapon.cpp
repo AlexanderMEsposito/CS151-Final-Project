@@ -107,7 +107,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
     }
 }
 
-void Weapon::render(sf::RenderWindow& window, sf::RectangleShape& reloadBar)
+void Weapon::render(Renderer& window, sf::RectangleShape& reloadBar)
 {
 
     // if (firing)

@@ -73,7 +73,7 @@ void Enemy::clampSpeed()
     }
 }
 
-void Enemy::render(sf::RenderWindow& window)
+void Enemy::render(Renderer& window)
 {
 
     window.draw(temp_shape);

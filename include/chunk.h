@@ -18,7 +18,7 @@ public:
 
     Chunk& initialize(int u, int v, Game* owner);
 
-    void render(sf::RenderWindow& window, const sf::Vector2f& reference);
+    void render(Renderer& window);
 
     sf::Vector2i Twist2(int U, int V);
 

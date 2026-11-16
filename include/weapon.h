@@ -34,7 +34,7 @@ public:
 
     void update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos);
 
-    void render(sf::RenderWindow& window, sf::RectangleShape& reloadBar);
+    void render(Renderer& window, sf::RectangleShape& reloadBar);
 
     std::vector<Bullet>& getBullets();
     const std::vector<Bullet>& getBullets() const;

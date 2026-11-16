@@ -3,6 +3,8 @@
 #include "player.h"
 #include "healthbar.h"
 
+#include "renderer.h"
+
 #include "enemyData.h"
 
 class Enemy {
@@ -50,7 +52,7 @@ class Enemy {
 
         sf::CircleShape& getShape() {return temp_shape;}
 
-        void render(sf::RenderWindow& window);
+        void render(Renderer& window);
 
         void collide(Enemy& other);
         void collidePlayer(Player& player);

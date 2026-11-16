@@ -31,7 +31,7 @@ void HealthBar::update(float ratio, sf::Vector2f entityPos) {
     fill.setPosition(entityPos + offset);
 
 }
-void HealthBar::render(sf::RenderWindow &window) {
+void HealthBar::render(Renderer &window) {
     if (!isHud) {
         if(fill.getSize().x < width) {
             window.draw(fill);

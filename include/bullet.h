@@ -10,6 +10,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "../include/renderer.h"
 
 class Bullet {
 public:
@@ -17,7 +18,7 @@ public:
 
     void update(float deltaTime, sf::Vector2f cameraVelocity);
     
-    void render(sf::RenderWindow& window) const;
+    void render(Renderer& window) const;
     sf::Vector2f getPosition() const;
     
     float getRadius() const;

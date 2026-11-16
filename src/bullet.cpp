@@ -24,7 +24,7 @@ void Bullet::update(float deltaTime, sf::Vector2f cameraVelocity)
     shape.setPosition(previousPosition + (velocity - cameraVelocity) * deltaTime);
 }
 
-void Bullet::render(sf::RenderWindow& window) const
+void Bullet::render(Renderer& window) const
 {
     window.draw(shape);
 }

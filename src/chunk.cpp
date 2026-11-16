@@ -36,15 +36,15 @@ Chunk& Chunk::initialize(int U, int V, Game* owner)
     return *this;
 }
 
-void Chunk::render(sf::RenderWindow& window, const sf::Vector2f& reference)
+void Chunk::render(Renderer& window)
 {
-    display.setPosition(corner_upper_left - reference);
+    display.setPosition(corner_upper_left - window.world_reference);
 
     window.draw(display);
 
     for (Object& o : objects)
     {
-        o.render(window, reference);
+        o.render(window);
     }
 }
 
