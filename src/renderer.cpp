@@ -2,6 +2,7 @@
 #include "../include/constants.h"
 
 
+
 Renderer::Renderer(): 
 window(
     sf::VideoMode({
