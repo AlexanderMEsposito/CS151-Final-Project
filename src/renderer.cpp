@@ -1,6 +1,6 @@
 #include "../include/renderer.h"
 #include "../include/constants.h"
-
+#include "../include/twister.h"
 
 
 Renderer::Renderer(): 
@@ -34,6 +34,9 @@ void Renderer::handleInput()
 void Renderer::update(const sf::Vector2f& worldReference)
 {
     m_world_reference = worldReference;
+
+    // Screen shake decay
+    screen_shake *= Constants::SCREEN_SHAKE_DECAY;
 }
 
 void Renderer::close()
@@ -58,6 +61,17 @@ void Renderer::setFramerateLimit(float fps)
 }
 
 
+// Effects
+void Renderer::addScreenShake(float amount)
+{
+
+    if (amount > screen_shake)
+    {
+        screen_shake = amount;
+    }
+
+}
+
 // Drawing
 
 void Renderer::clear(const sf::Color& color)
@@ -65,7 +79,18 @@ void Renderer::clear(const sf::Color& color)
     window.clear(color);
 }
 
-void Renderer::draw(const sf::Drawable& drawable, const sf::RenderStates& states)
+void Renderer::prepareDraw()
+{
+
+    // Reset render states
+    states = sf::RenderStates::Default;
+
+    draw_offset = {randrange(-screen_shake, screen_shake), randrange(-screen_shake, screen_shake)};
+
+    states.transform.translate(draw_offset);
+}
+
+void Renderer::draw(const sf::Drawable& drawable)
 {
     window.draw(drawable, states);
 }

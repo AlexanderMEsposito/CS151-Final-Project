@@ -253,6 +253,8 @@ void Game::render() {
 
     window.update(player.getPos());
 
+    window.prepareDraw();
+
     // First draw the world background
     world.renderChunks(window);
 
