@@ -110,10 +110,10 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
 void Weapon::render(Renderer& window, sf::RectangleShape& reloadBar)
 {
 
-    // if (firing)
-    // {
-    //     window.draw(beam);
-    // }
+    if (firing)
+    {
+        window.addScreenShake(4.0f);
+    }
     if (isReload) {
         window.draw(reloadBar);
     }

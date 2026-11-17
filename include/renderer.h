@@ -33,10 +33,13 @@ public:
     // Drawing
     void clear(const sf::Color& color);
 
-    void draw(const sf::Drawable& drawable, const sf::RenderStates& states = sf::RenderStates::Default);
+    void prepareDraw();
+
+    void draw(const sf::Drawable& drawable);
 
     void display();
 
+    void addScreenShake(float amount);
 
 private:
 
@@ -61,7 +64,10 @@ private:
     sf::Vector2f draw_offset;
 
     // Screen shake per tick, in pixels
-    sf::Vector2f screen_shake;
+    float screen_shake {0.0f};
+
+    // Render states
+    sf::RenderStates states = sf::RenderStates::Default;
 
 };
 

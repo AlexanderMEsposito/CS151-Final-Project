@@ -16,6 +16,8 @@ namespace Constants {
     inline constexpr int HP_TEXT_MARGIN_X = 130; 
     inline constexpr int HP_TEXT_MARGIN_Y = 50;
 
+    inline constexpr float SCREEN_SHAKE_DECAY = .85;
+
     // ---------------------------------------------
     // PLAYER
     inline constexpr float PLAYER_ACCEL = 3000;
