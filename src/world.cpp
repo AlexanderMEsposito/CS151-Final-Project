@@ -43,3 +43,14 @@ void World::renderChunks(Renderer& window)
         }
     }
 }
+
+void World::renderObjects(Renderer& window)
+{
+    for (int row {load_ax}; row <= load_bx; row++)
+    {
+        for (int column {load_ay}; column <= load_by; column++)
+        {
+            access_chunk_at(row, column).renderObjects(window);
+        }
+    }
+}
