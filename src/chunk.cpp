@@ -41,7 +41,10 @@ void Chunk::render(Renderer& window)
     display.setPosition(corner_upper_left - window.world_reference);
 
     window.draw(display);
+}
 
+void Chunk::renderObjects(Renderer& window)
+{
     for (Object& o : objects)
     {
         o.render(window);

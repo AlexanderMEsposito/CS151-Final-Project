@@ -257,6 +257,7 @@ void Game::render() {
 
     // First draw the world background
     world.renderChunks(window);
+    world.renderObjects(window);
 
     // THEN DRAW
     window.draw(test_text);

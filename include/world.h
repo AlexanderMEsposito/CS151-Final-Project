@@ -21,6 +21,7 @@ public:
     void updateChunks();
 
     void renderChunks(Renderer& window);
+    void renderObjects(Renderer& window);
 
     Chunk& access_chunk_at(int row, int column);
 
