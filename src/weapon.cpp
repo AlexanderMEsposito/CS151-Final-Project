@@ -68,8 +68,9 @@ void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
         reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * reloadTimer.progress(), reloadBar.getSize().y});
         if (reloadTimer.done()) {
             ammo += data.reload_amount;
-            if (ammo == data.magazine_size) {
+            if (ammo >= data.magazine_size) {
                 isReload = false;
+                ammo = data.magazine_size;
             } else reloadTimer.restart();
         }
     }
