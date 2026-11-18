@@ -31,7 +31,7 @@ class Player {
         void damage(float amount);
 
         sf::CircleShape playerShape;
-        Weapon weapon;
+        Weapon weapon {2};
 
 
     private:

@@ -1,6 +1,8 @@
 #include "weapon.h"
 #include "constants.h"
 
+#include "weaponTemplates.h"
+
 //testing
 #include <iostream>
 
@@ -10,10 +12,6 @@
 Weapon::Weapon()
 {
     name = "Weapon";
-    damage = 25;
-    range = 400.f;
-    ammo = 10;
-    magSize = 20;
 
     // beam.setSize(sf::Vector2f(range, 2.f));
     // beam.setOrigin({0.f, 1.f});
@@ -23,14 +21,12 @@ Weapon::Weapon()
     gunFire2.setVolume(25);
 }
 
+Weapon::Weapon(int type)
+{
+    data = WeaponTemplates::all[type];
 
-// Weapon::Weapon(std::string name, int dmg, float Range): name(name), damage(dmg), range(Range)
-// {
-//     beam.setSize(sf::Vector2f(range, 10.f));
-//     beam.setOrigin({0.f, 5.f});
-//     beam.setFillColor(sf::Color::White);
-//     beam.setPosition({Constants::WINDOW_WIDTH / 2.f, Constants::WINDOW_HEIGHT / 2.f});
-// }
+    gunFire2.setVolume(25);
+}
 
 
 // ------------------------ ------------------------ ------------------------
@@ -60,7 +56,7 @@ int Weapon::getAmmo() const{
     return ammo;
 }
 void Weapon::reload() {
-    if (isReload == false && ammo < magSize && firing == false) {
+    if (isReload == false && ammo < data.magazine_size && firing == false) {
         isReload = true;
         reloadTimer.restart();
     }
@@ -71,8 +67,8 @@ void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
         //set length based on fraction of being close to reloading
         reloadBar.setSize({Constants::DEFAULT_RELOAD_SIZE.x * reloadTimer.progress(), reloadBar.getSize().y});
         if (reloadTimer.done()) {
-            ammo += 1;
-            if (ammo == magSize) {
+            ammo += data.reload_amount;
+            if (ammo == data.magazine_size) {
                 isReload = false;
             } else reloadTimer.restart();
         }
@@ -101,7 +97,7 @@ void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mouseP
         firing = false;
     }
 
-    if (cooldownTimer.done() && (automatic || !left_click))
+    if (cooldownTimer.done() && (data.automatic || !left_click))
     {
         ready = true;
     }
@@ -112,7 +108,7 @@ void Weapon::render(Renderer& window, sf::RectangleShape& reloadBar)
 
     if (firing)
     {
-        window.addScreenShake(4.0f);
+        window.addScreenShake(data.screen_shake);
     }
     if (isReload) {
         window.draw(reloadBar);

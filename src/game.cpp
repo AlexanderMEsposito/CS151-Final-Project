@@ -80,7 +80,7 @@ void Game::update() {
     world.setOrigin(player.getPos());
 
     updateEnemies();
-    hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), 20);
+    hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), player.weapon.data.magazine_size);
     updateTestUI();
 }
 
@@ -161,7 +161,7 @@ void Game::updateEnemies()
 
             if (distance <= radius)
             {
-                e.getData().health -= player.weapon.damage;
+                e.getData().health -= player.weapon.data.damage;
                 e.getShape().setFillColor(sf::Color::Red);
                 juicyImpact.play();
 

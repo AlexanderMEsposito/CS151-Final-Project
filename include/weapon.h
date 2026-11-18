@@ -8,6 +8,8 @@
 #include "bullet.h"
 #include "timer.h"
 
+#include "weaponData.h"
+
 class Weapon
 {
 
@@ -17,14 +19,12 @@ public:
 
     std::string name {"Weapon"};
 
-    int damage {10};
-    float range {500.0f};
     //sf::RectangleShape beam;
 
     // ------------------------
     // Constructors
     Weapon();
-    Weapon(std::string name, int dmg, float Range);
+    Weapon(int type);
 
     // ------------------------
     // Functions
@@ -39,26 +39,23 @@ public:
     std::vector<Bullet>& getBullets();
     const std::vector<Bullet>& getBullets() const;
 
-
-    bool firing = false; // If the weapon is currently firing
-    bool ready = true; // If the weapon is ready to fire
-
-    bool automatic = false; // If false, requires the player to release left mouse before the weapon can fire again
+    WeaponData data;
     
-    Timer fire_timer {.015f};
-    Timer cooldownTimer {.05f};
+    Timer fire_timer {data.duration};
+    Timer cooldownTimer {data.cooldown};
 
     int getAmmo() const;
     void reload();
     
+    bool firing;
+    bool ready; 
 
 private:
     //per bullet
 
-    Timer reloadTimer {0.22f};
+    Timer reloadTimer {data.reload_time};
 
     bool isReload = false;
-    int magSize;
     int ammo;
     std::vector<Bullet> bullets;
 
