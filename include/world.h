@@ -23,6 +23,10 @@ public:
     void renderChunks(Renderer& window);
     void renderObjects(Renderer& window);
 
+    void update(Player& player);
+
+    void cleanup();
+
     Chunk& access_chunk_at(int row, int column);
 
 private:

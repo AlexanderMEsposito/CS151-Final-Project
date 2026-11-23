@@ -11,6 +11,7 @@ OBJS = main.o game.o menuscreen.o player.o weapon.o bullet.o enemy.o timer.o hea
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h $(WEAPON_H) include/timer.h include/healthbar.h include/renderer.h
 WEAPON_H = include/weapon.h include/weaponData.h include/weaponTemplates.h
+OBJECT_H = include/object.h include/objectData.h include/objectTemplates.h
 ENEMY_H  = include/enemy.h include/enemyData.h include/enemyTemplates.h $(PLAYER_H) include/renderer.h
 GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h include/twister.h include/bullet.h
 
@@ -40,7 +41,7 @@ healthbar.o: src/healthbar.cpp include/healthbar.h include/player.h
 
 world.o: src/world.cpp include/world.h include/chunk.h include/game.h
 
-chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h include/twister.h 
+chunk.o: src/chunk.cpp include/chunk.h include/noise.h include/constants.h include/game.h include/twister.h $(OBJECT_H)
 
 noise.o: src/noise.cpp include/noise.h
 
@@ -48,7 +49,7 @@ hud.o: src/hud.cpp include/hud.h include/healthbar.h
 
 twister.o: src/twister.cpp include/twister.h
 
-object.o: src/object.cpp include/object.h
+object.o: src/object.cpp $(OBJECT_H)
 
 renderer.o: src/renderer.cpp include/renderer.h
 

@@ -54,3 +54,26 @@ void World::renderObjects(Renderer& window)
         }
     }
 }
+
+
+void World::cleanup()
+{
+    for (int row {load_ax}; row <= load_bx; row++)
+    {
+        for (int column {load_ay}; column <= load_by; column++)
+        {
+            access_chunk_at(row, column).cleanup();
+        }
+    }
+}
+
+void World::update(Player& player)
+{
+    for (int row {load_ax}; row <= load_bx; row++)
+    {
+        for (int column {load_ay}; column <= load_by; column++)
+        {
+            access_chunk_at(row, column).updateObjects(player);
+        }
+    }
+}

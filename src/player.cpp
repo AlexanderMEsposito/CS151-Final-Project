@@ -95,7 +95,7 @@ void Player::friction(float dt)
         vel = {0, 0};
     } else
     {
-        vel = vel/vel.length() * (vel.length() - (dt * Constants::FRICTION));
+        vel -= (vel.normalized() * (dt * Constants::FRICTION));
     }
 }
 

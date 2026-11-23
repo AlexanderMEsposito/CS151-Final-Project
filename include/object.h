@@ -3,24 +3,37 @@
 #include <SFML/Graphics.hpp>
 #include "renderer.h"
 
+#include "objectData.h"
+
+#include "player.h"
+
 class Object
 {
 
 public:
 
-    Object(sf::Vector2f spawnpoint);
+    Object(sf::Vector2f spawnpoint, const ObjectData& data);
 
-    void update();
+    void update(Player& player);
     void render(Renderer& window);
 
+    void explode(Player& player);
+
+    void remove();
+    bool shouldRemove() {return removed;}
+
+    ObjectData data;
+
 private:
+
+    bool removed = false;
 
     sf::Vector2f pos;
     sf::Vector2f vel;
 
     sf::RectangleShape shape;
 
-    sf::Texture temp_texture {"assets/art/objects/tree.png"};
+    sf::Texture temp_texture {data.texture};
 
 };
 
