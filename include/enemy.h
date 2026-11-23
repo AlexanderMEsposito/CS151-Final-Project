@@ -24,6 +24,7 @@ class Enemy {
         void setVel(const sf::Vector2f& v) {vel = v;}
 
         sf::Vector2f getVel() {return vel;}
+        sf::Vector2f getPos() {return pos;}
 
         /**
          * @brief Adds the given acceleration to the velocity, scaled by delta time.

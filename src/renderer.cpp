@@ -13,6 +13,8 @@ window(
     )
 {
 
+    m_screen_center = {Constants::WINDOW_WIDTH / 2, Constants::WINDOW_HEIGHT / 2};
+
 }
 
 

@@ -1,6 +1,8 @@
 #include "weapon.h"
 #include "constants.h"
 
+#include "../include/player.h"
+
 #include "weaponTemplates.h"
 
 //testing
@@ -31,7 +33,7 @@ Weapon::Weapon(int type)
 
 // ------------------------ ------------------------ ------------------------
 
-bool Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
+bool Weapon::fire(Player& player, sf::Vector2f mousePos)
 {
     if (ammo > 0) {
         if (isReload)
@@ -41,11 +43,13 @@ bool Weapon::fire(sf::Vector2f playerPos, sf::Vector2f mousePos)
 
         //beam.setPosition(playerPos);
         //beam.setRotation(diff.angle());
-        sf::Vector2f diff = mousePos - playerPos;
+        sf::Vector2f diff = (mousePos - player.playerShape.getPosition());
         if (diff.lengthSquared() > 0.f)
         {
+            diff = diff.normalized();
+
             constexpr float bulletSpeed = 900.f;
-            bullets.emplace_back(playerPos, diff.normalized() * bulletSpeed);
+            bullets.emplace_back(player.getPos() + player.getVel() * .1f + diff * 30.0f, diff * bulletSpeed);
         }
         ammo -= 1;
         return true;
@@ -76,14 +80,14 @@ void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
     }
 }
 
-void Weapon::update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos)
+void Weapon::update(bool left_click, Player& player, sf::Vector2f mousePos)
 {
     if (left_click) 
     {
         if (ready)
         {
             ready = false;
-            if(fire(playerPos, mousePos)) 
+            if(fire(player, mousePos)) 
             {
                 firing = true;
                 gunFire2.play();

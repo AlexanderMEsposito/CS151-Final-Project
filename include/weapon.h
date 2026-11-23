@@ -10,6 +10,10 @@
 
 #include "weaponData.h"
 
+// Forward declare
+class Player;
+
+
 class Weapon
 {
 
@@ -30,9 +34,9 @@ public:
     // Functions
     void updateMag(float dt, sf::RectangleShape& reloadBar);
 
-    bool fire(sf::Vector2f playerPos, sf::Vector2f mousePos);
+    bool fire(Player& player, sf::Vector2f mousePos);
 
-    void update(bool left_click, sf::Vector2f playerPos, sf::Vector2f mousePos);
+    void update(bool left_click, Player& player, sf::Vector2f mousePos);
 
     void render(Renderer& window, sf::RectangleShape& reloadBar);
 
