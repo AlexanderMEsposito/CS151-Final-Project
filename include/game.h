@@ -55,6 +55,7 @@ class Game {
         void updateEnemies();
         void updateTestUI();
         void handleCollisions();
+        void cleanup();
 
         // ------------------------
 
