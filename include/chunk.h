@@ -22,6 +22,10 @@ public:
     void render(Renderer& window);
     void renderObjects(Renderer& window);
 
+    void updateObjects(Player& player);
+
+    void cleanup();
+
     sf::Vector2i Twist2(int U, int V);
 
 private:

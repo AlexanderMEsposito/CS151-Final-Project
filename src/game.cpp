@@ -78,11 +78,14 @@ void Game::update() {
     handleCollisions();
 
     world.setOrigin(player.getPos());
-    window.update(player.getPos());
+
+    world.update(player);
 
     updateEnemies();
     hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), player.weapon.data.magazine_size);
     updateTestUI();
+
+    cleanup();
 }
 
 // ------------------------ ------------------------ ------------------------
@@ -281,3 +284,10 @@ void Game::drawEnemies()
     }
 }
 
+
+void Game::cleanup()
+{
+
+    world.cleanup();
+
+}

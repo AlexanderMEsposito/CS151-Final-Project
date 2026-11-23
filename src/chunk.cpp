@@ -5,6 +5,7 @@
 
 #include "../include/game.h"
 #include "../include/twister.h"
+#include "../include/objectTemplates.h"
 
 Chunk::Chunk(int U, int V, Game* owner)
 {
@@ -51,6 +52,15 @@ void Chunk::renderObjects(Renderer& window)
     }
 }
 
+void Chunk::updateObjects(Player& player)
+{
+    for (Object& o : objects)
+    {
+        o.update(player);
+    }
+}
+
+
 void Chunk::generate()
 {
     float val = noise(float(u) / 2, float(v) / 2);
@@ -69,10 +79,20 @@ void Chunk::generate()
 
     if (chance(0.5f))
     {
-        // Spawn random tree in the chunk
-        objects.emplace_back(
-            randpoint(corner_upper_left, corner_lower_right)
-        );
+        if (chance(.5f))
+        {
+            // Spawn random landmine in the chunk
+            objects.emplace_back(
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::landmine
+            );
+        }
+        else
+        {
+            // Spawn random tree in the chunk
+            objects.emplace_back(
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::tree
+            );
+        }
     }
 }
 
@@ -91,4 +111,22 @@ sf::Vector2i Chunk::Twist2(int U, int V){
         ,
             (((V + U) * w) % z + q) * b % H
     };
+}
+
+
+void Chunk::cleanup()
+{
+    size_t o = 0;
+
+    while (o < objects.size())
+    {
+        if (objects[o].shouldRemove())
+        {
+            objects.erase(objects.begin() + o);
+        }
+        else
+        {
+            o++;
+        }
+    }
 }

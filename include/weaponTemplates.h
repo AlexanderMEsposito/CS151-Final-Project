@@ -30,7 +30,7 @@ namespace WeaponTemplates
     };
 
     constexpr WeaponData machineGun {
-        20,
+        40,
         500,
         .05f,
         .015f,
