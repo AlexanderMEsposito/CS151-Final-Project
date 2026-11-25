@@ -105,21 +105,21 @@ void Player::friction(float dt)
  * @param a Acceleration summed over a single game frame (in pixels)
  */
 void Player::accel(sf::Vector2f a) {
-    //Handle Max Speed
-    //If summed speed is not over one then set vel to sum of accel and vel
-    if ((abs((vel.x + a.x)) <= Constants::MAX_SPEED) && abs((vel.y + a.y)) <= Constants::MAX_SPEED) {
-        setVel(vel + a);
-    //If sum of x magnitude is less than one then you can add the x values, but y is set to MAX_SPEED keeping the sign
-    } else if(abs(vel.x + a.x) < Constants::MAX_SPEED) {
-        setVel({(vel.x + a.x), ((vel.y) / abs(vel.y))});
-        setVel({
-            (vel.x + a.x), std::copysign(Constants::MAX_SPEED, vel.y)
-        });
-    } else if(abs(vel.y + a.y) < Constants::MAX_SPEED) {
-        setVel({
-            (std::copysign(Constants::MAX_SPEED, vel.x)), (vel.y + a.y)
-        });
+
+    // Compute new velocity by adding the acceleration
+    sf::Vector2f new_vel = vel + a;
+
+    // Check if velocity is less than max speed
+    if (new_vel.lengthSquared() <= Constants::MAX_SPEED_SQ)
+    {
+        // Velocity is acceptable, just be done with it
+        vel = new_vel;
+        return;
     }
+
+    // In this case, the acceleration causes the player to accelerate past max speed
+    // so we should force vel to keep the same speed it had before
+    vel = new_vel.normalized() * vel.length();
 }
 sf::Vector2f Player::getVel() {
     return vel;
