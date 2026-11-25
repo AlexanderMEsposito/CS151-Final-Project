@@ -78,6 +78,7 @@ void Game::update() {
     handleCollisions();
 
     world.setOrigin(player.getPos());
+
     world.update(player);
 
     updateEnemies();
@@ -152,17 +153,13 @@ void Game::updateEnemies()
     while (bulletIndex < bullets.size())
     {
         Bullet& bullet = bullets[bulletIndex];
-        bullet.update(dt, player.getVel());
+        bullet.update(dt);
 
         bool hit = false;
 
         for (Enemy& e : enemies)
         {
-            float distance = (bullet.getPosition() - e.getShape().getPosition()).length();
-
-            float radius = bullet.getRadius() + e.getShape().getRadius();
-
-            if (distance <= radius)
+            if (bullet.colliding(e.getPos(), e.getShape().getRadius()))
             {
                 e.getData().health -= player.weapon.data.damage;
                 e.getShape().setFillColor(sf::Color::Red);
@@ -266,7 +263,7 @@ void Game::render() {
     window.draw(test_text);
     window.draw(text_vel);
     player.render(window);
-    for (const Bullet& bullet : player.weapon.getBullets())
+    for (Bullet& bullet : player.weapon.getBullets())
     {
         bullet.render(window);
     }

@@ -86,7 +86,7 @@ void Player::handleInput(const sf::Vector2f &mousePos, float &dt) {
         //player.animate(reload)
         weapon.reload();
     }
-    weapon.update(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left), playerShape.getPosition(), mousePos);
+    weapon.update(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left), *this, mousePos);
 }
 void Player::friction(float dt)
 {
