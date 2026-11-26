@@ -72,6 +72,9 @@ class Game {
 
         bool running() const;
 
+        // Getter
+        Renderer* getWindow() {return &window;}
+
     private:
         
         Renderer window;

@@ -49,11 +49,6 @@ void Player::update(float dt) {
     accel(inputDir); // Accelerate from the player input
     friction(dt); // Apply friction every update
 
-
-    if (vel.length() > Constants::MAX_SPEED) {
-        vel *= (Constants::MAX_SPEED / vel.length());
-    }
-
     pos += vel * dt;
 
     playerShape.setPosition({(Constants::WINDOW_WIDTH)/2 + vel.x / 10, (Constants::WINDOW_HEIGHT)/2 + vel.y / 10});

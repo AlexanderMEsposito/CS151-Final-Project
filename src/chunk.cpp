@@ -83,14 +83,14 @@ void Chunk::generate()
         {
             // Spawn random landmine in the chunk
             objects.emplace_back(
-                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::landmine
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::landmine, game->getWindow()
             );
         }
         else
         {
             // Spawn random tree in the chunk
             objects.emplace_back(
-                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::tree
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::tree, game->getWindow()
             );
         }
     }

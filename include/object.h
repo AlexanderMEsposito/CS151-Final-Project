@@ -12,7 +12,7 @@ class Object
 
 public:
 
-    Object(sf::Vector2f spawnpoint, const ObjectData& data);
+    Object(sf::Vector2f spawnpoint, const ObjectData& data, Renderer* renderer);
 
     void update(Player& player);
     void render(Renderer& window);
@@ -34,6 +34,8 @@ private:
     sf::RectangleShape shape;
 
     sf::Texture temp_texture {data.texture};
+
+    Renderer* window = 0;
 
 };
 
