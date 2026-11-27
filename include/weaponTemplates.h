@@ -34,11 +34,12 @@ namespace WeaponTemplates
         500,
         .05f,
         .015f,
-        true,
-        60,
-        60,
+        false,
+        30,
+        30,
         2.0f,
-        4.0f
+        4.0f,
+        3
     };
 
     constexpr WeaponData cannon {

@@ -20,6 +20,6 @@ struct WeaponData {
     //
     float screen_shake {.04};
 
-    
+    int burst_size {1};
 
 };

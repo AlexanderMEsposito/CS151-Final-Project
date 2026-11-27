@@ -18,6 +18,7 @@
 #include "../include/menuscreen.h"
 #include "../include/hud.h"
 #include "../include/constants.h"
+#include "../include/roundManager.h"
 
 #include "../include/world.h"
 
@@ -89,6 +90,7 @@ class Game {
         Player player;
 
         std::vector<Enemy> enemies; // List of all enemies in the world
+        RoundManager roundManager;
 
         //HUD
         HUD hud;

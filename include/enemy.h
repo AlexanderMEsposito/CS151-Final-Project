@@ -62,7 +62,13 @@ class Enemy {
 
         bool isDead() const;
 
-        void setData(const EnemyData& Data) {data = Data;}
+        void setData(const EnemyData& enemyData)
+        {
+            data = enemyData;
+            maxHealth = data.health;
+        }
+
+        void scaleForRound(int roundNumber);
         EnemyData& getData() {return data;}
         
     private:
@@ -74,6 +80,7 @@ class Enemy {
         
         // Data
         EnemyData data;
+        float maxHealth {100.0f};
 
         // Render
         sf::CircleShape temp_shape; // Replace with a texture at some point

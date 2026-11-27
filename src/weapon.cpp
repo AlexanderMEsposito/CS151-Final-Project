@@ -11,7 +11,7 @@
 // ------------------------ ------------------------ ------------------------
 // Constructors
 
-Weapon::Weapon()
+Weapon::Weapon(): ammo(data.magazine_size)
 {
     name = "Weapon";
 
@@ -26,6 +26,11 @@ Weapon::Weapon()
 Weapon::Weapon(int type)
 {
     data = WeaponTemplates::all[type];
+    ammo = data.magazine_size;
+    fire_timer.setDuration(data.duration);
+    cooldownTimer.setDuration(data.cooldown);
+    reloadTimer.setDuration(data.reload_time);
+    burstTimer.setDuration(data.cooldown);
 
     gunFire2.setVolume(25);
 }
@@ -60,7 +65,7 @@ int Weapon::getAmmo() const{
     return ammo;
 }
 void Weapon::reload() {
-    if (isReload == false && ammo < data.magazine_size && firing == false) {
+    if (isReload == false && ammo < data.magazine_size && firing == false && burstShotsRemaining == 0) {
         isReload = true;
         reloadTimer.restart();
     }
@@ -82,6 +87,55 @@ void Weapon::updateMag(float dt, sf::RectangleShape& reloadBar) {
 
 void Weapon::update(bool left_click, Player& player, sf::Vector2f mousePos)
 {
+    if (data.burst_size > 1)
+    {
+        const auto recordShot = [this]()
+        {
+            firing = true;
+            gunFire2.play();
+            fire_timer.restart();
+            cooldownTimer.restart();
+        };
+
+        if (left_click && ready)
+        {
+            ready = false;
+            if (burstShotsRemaining == 0 && fire(player, mousePos))
+            {
+                burstShotsRemaining = data.burst_size - 1;
+                burstTimer.setDuration(data.cooldown);
+                burstTimer.restart();
+                recordShot();
+            }
+        }
+
+        if (burstShotsRemaining > 0 && burstTimer.done())
+        {
+            if (fire(player, mousePos))
+            {
+                --burstShotsRemaining;
+                burstTimer.restart();
+                recordShot();
+            }
+            else
+            {
+                burstShotsRemaining = 0;
+            }
+        }
+
+        if (!left_click && cooldownTimer.done())
+        {
+            ready = true;
+        }
+
+        if (fire_timer.done())
+        {
+            firing = false;
+        }
+
+        return;
+    }
+
     if (left_click) 
     {
         if (ready)
