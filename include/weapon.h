@@ -51,16 +51,18 @@ public:
     int getAmmo() const;
     void reload();
     
-    bool firing;
-    bool ready; 
+    bool firing {false};
+    bool ready {true};
 
 private:
     //per bullet
 
     Timer reloadTimer {data.reload_time};
+    Timer burstTimer {data.cooldown};
 
     bool isReload = false;
-    int ammo;
+    int ammo {0};
+    int burstShotsRemaining {0};
     std::vector<Bullet> bullets;
 
     sf::SoundBuffer gunFire2B{"assets/sfx/heavy-gun-fire2.mp3"};

@@ -33,9 +33,6 @@ Game::Game()
 
     seed_random();
 
-    spawnEnemies(3, {0, 0}, {Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
-
-
 }
 
 // ------------------------ ------------------------ ------------------------ ------------------------
@@ -82,6 +79,12 @@ void Game::update() {
     world.update(player);
 
     updateEnemies();
+    const int spawnCount = roundManager.update(static_cast<int>(enemies.size()));
+    if (spawnCount > 0)
+    {
+        spawnEnemies(spawnCount, {0, 0}, {Constants::CHUNK_SIZE, Constants::CHUNK_SIZE});
+    }
+
     hud.update(player.getPlayerHealth(), 100.f, player.weapon.getAmmo(), player.weapon.data.magazine_size);
     updateTestUI();
 
@@ -124,6 +127,8 @@ void Game::spawnEnemies(int quantity, const sf::Vector2f& bound_a, const sf::Vec
                 enemies.back().setData(EnemyTypes::injured);
             }
         }
+
+        enemies.back().scaleForRound(roundManager.getRoundNumber());
             
     }
 
@@ -223,6 +228,22 @@ void Game::updateEnemies()
 // Update the ui that draws on the screen for testing purposes. This should be replaced with a real ui drawing function at some point.
 void Game::updateTestUI()
 {
+    if (roundManager.isIntermission())
+    {
+        test_text.setString(
+            "Next round: " + std::to_string(roundManager.getRoundNumber() + 1) +
+            " in " + std::to_string(roundManager.getIntermissionSecondsRemaining()) + "s"
+        );
+    }
+    else
+    {
+        test_text.setString(
+            "Round: " + std::to_string(roundManager.getRoundNumber()) +
+            " | Alive: " + std::to_string(enemies.size()) +
+            " | To spawn: " + std::to_string(roundManager.getRemainingToSpawn())
+        );
+    }
+
     std::string vel_str = "Vel: (" + std::to_string(player.getVel().x) + ", " + std::to_string(player.getVel().y) + ")";
     
     text_vel.setString(vel_str);
