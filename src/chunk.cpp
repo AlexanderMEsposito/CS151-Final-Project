@@ -18,6 +18,8 @@ Chunk& Chunk::initialize(int U, int V, Game* owner)
 
     game = owner;
 
+    material = owner->getContext().assets.requestTexture("world/grass.png");
+
     u = U;
     v = V;
 
@@ -68,7 +70,7 @@ void Chunk::generate()
     int green = 155 + int(val * 100);
 
     display.setFillColor({255, uint8_t(green), 255});
-    display.setTexture(&material);
+    display.setTexture(material);
 
     // In one tenth of the chunks
     if (chance(0.1f))
@@ -83,14 +85,14 @@ void Chunk::generate()
         {
             // Spawn random landmine in the chunk
             objects.emplace_back(
-                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::landmine, game->getWindow()
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::landmine, game->getContext()
             );
         }
         else
         {
             // Spawn random tree in the chunk
             objects.emplace_back(
-                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::tree, game->getWindow()
+                randpoint(corner_upper_left, corner_lower_right), ObjectTemplates::tree, game->getContext()
             );
         }
     }
@@ -116,17 +118,5 @@ sf::Vector2i Chunk::Twist2(int U, int V){
 
 void Chunk::cleanup()
 {
-    size_t o = 0;
-
-    while (o < objects.size())
-    {
-        if (objects[o].shouldRemove())
-        {
-            objects.erase(objects.begin() + o);
-        }
-        else
-        {
-            o++;
-        }
-    }
+    objects.remove_if([](const Object& o) { return o.shouldRemove(); });
 }

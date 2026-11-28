@@ -7,12 +7,14 @@
 
 #include "player.h"
 
+#include "GameContext.h"
+
 class Object
 {
 
 public:
 
-    Object(sf::Vector2f spawnpoint, const ObjectData& data, Renderer* renderer);
+    Object(sf::Vector2f spawnpoint, const ObjectData& data, GameContext& ctx);
 
     void update(Player& player);
     void render(Renderer& window);
@@ -20,7 +22,7 @@ public:
     void explode(Player& player);
 
     void remove();
-    bool shouldRemove() {return removed;}
+    bool shouldRemove() const {return removed;}
 
     ObjectData data;
 
@@ -33,9 +35,9 @@ private:
 
     sf::RectangleShape shape;
 
-    sf::Texture temp_texture {data.texture};
+    const sf::Texture* texture {0};
 
-    Renderer* window = 0;
+    GameContext& ctx;
 
 };
 
