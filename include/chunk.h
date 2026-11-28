@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "../include/object.h"
 #include "../include/enemy.h"
-#include <vector>
+#include <list>
 
 class Game; // Forward declaration
 
@@ -38,7 +38,7 @@ private:
     sf::Vector2f corner_lower_right {0.0f, 0.0f};
 
     sf::RectangleShape display;
-    sf::Texture material {"assets/art/world/grass.png"};
+    const sf::Texture* material {};
 
     // Generation Data
     int biome {0};
@@ -49,8 +49,8 @@ private:
     Game* game {};
 
     // Container
-    std::vector<Object> objects;
-    std::vector<Enemy> enemies;
+    std::list<Object> objects;
+    std::list<Enemy> enemies;
 };
 
 

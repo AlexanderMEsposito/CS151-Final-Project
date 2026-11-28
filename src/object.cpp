@@ -3,10 +3,12 @@
 
 #include "constants.h"
 
-Object::Object(sf::Vector2f spawnpoint, const ObjectData& Template, Renderer* renderer): data(Template), pos(spawnpoint), window(renderer)
+Object::Object(sf::Vector2f spawnpoint, const ObjectData& Template, GameContext& context): data(Template), pos(spawnpoint), ctx(context)
 {
+    texture = ctx.assets.requestTexture(std::string(data.texture));
+
     shape.setSize(data.size);
-    shape.setTexture(&temp_texture);
+    shape.setTexture(texture);
     shape.setOrigin(shape.getGeometricCenter());
 
 }
@@ -17,7 +19,7 @@ void Object::update(Player& player)
     if (data.on_step > 0)
     {
         // Check if player stepping on this object
-        if ((pos - player.getPos() - window->screen_center).lengthSquared() < data.size.x * data.size.y)
+        if ((pos - player.getPos() - ctx.window.screen_center).lengthSquared() < data.size.x * data.size.y)
         {
             if (data.on_step == 1)
             {
@@ -45,16 +47,13 @@ void Object::render(Renderer& window)
 
 void Object::explode(Player& player)
 {
-    if ((pos - player.getPos() - window->screen_center).lengthSquared() < data.size.x * data.size.y)
+    if ((pos - player.getPos() - ctx.window.screen_center).lengthSquared() < data.size.x * data.size.y)
     {
         player.damage(50);
         player.setVel(
-            player.getVel() + (player.getPos() - pos + window->screen_center).normalized() * 1410.f
+            player.getVel() + (player.getPos() - pos + ctx.window.screen_center).normalized() * 1410.f
         );
 
-        if (window)
-        {
-            window->addScreenShake(300);
-        }
+        ctx.window.addScreenShake(300);
     }
 }

@@ -6,12 +6,12 @@ LDFLAGS = -L"$(SFML_DIR)/lib"
 LDLIBS = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 
-OBJS = main.o game.o menuscreen.o player.o weapon.o bullet.o enemy.o timer.o roundManager.o healthbar.o world.o chunk.o hud.o noise.o twister.o object.o renderer.o
+OBJS = main.o game.o menuscreen.o player.o weapon.o bullet.o enemy.o timer.o roundManager.o healthbar.o world.o chunk.o hud.o noise.o twister.o object.o renderer.o assetManager.o
 
 # Header groups: each lists a header plus every header it includes (directly or indirectly)
 PLAYER_H = include/player.h $(WEAPON_H) include/timer.h include/healthbar.h include/renderer.h
-WEAPON_H = include/weapon.h include/weaponData.h include/weaponTemplates.h
-OBJECT_H = include/object.h include/objectData.h include/objectTemplates.h
+WEAPON_H = include/weapon.h include/weaponData.h include/weaponTemplates.h include/assetManager.h
+OBJECT_H = include/object.h include/objectData.h include/objectTemplates.h include/assetManager.h
 ENEMY_H  = include/enemy.h include/enemyData.h include/enemyTemplates.h $(PLAYER_H) include/renderer.h
 GAME_H   = include/game.h $(ENEMY_H) include/menuscreen.h include/screen.h include/constants.h include/world.h include/hud.h include/twister.h include/bullet.h include/roundManager.h
 
@@ -54,6 +54,8 @@ twister.o: src/twister.cpp include/twister.h
 object.o: src/object.cpp $(OBJECT_H)
 
 renderer.o: src/renderer.cpp include/renderer.h
+
+assetManager.o: src/assetManager.cpp include/assetManager.h
 
 run: game
 	.\game.exe

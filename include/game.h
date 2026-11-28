@@ -13,16 +13,18 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "../include/player.h"
-#include "../include/enemy.h"
-#include "../include/menuscreen.h"
-#include "../include/hud.h"
-#include "../include/constants.h"
-#include "../include/roundManager.h"
+#include "player.h"
+#include "enemy.h"
+#include "menuscreen.h"
+#include "hud.h"
+#include "constants.h"
+#include "roundManager.h"
 
-#include "../include/world.h"
+#include "world.h"
 
-#include "../include/renderer.h"
+#include "renderer.h"
+#include "assetManager.h"
+#include "GameContext.h"
 
 #include <ctime>
 
@@ -74,11 +76,14 @@ class Game {
         bool running() const;
 
         // Getter
-        Renderer* getWindow() {return &window;}
+        GameContext& getContext() {return context;}
 
     private:
         
         Renderer window;
+        AssetManager assets;
+
+        GameContext context {assets, window};
         
         sf::Clock clock;
 
